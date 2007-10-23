@@ -45,7 +45,7 @@ class CHMDocument < NSDocument
 	end
 end
 
-#class MySCWindow < NSWindow
+#class MySearchField < NSSearchField
 #
 #	attr_accessor :list
 #
@@ -64,6 +64,11 @@ end
 #	ib_action :moveUp do |sender|
 #		log "moveUp"
 #	end
+#
+#	def performKeyEquivalent(e)
+#		log "performKeyEquivalent"
+#		false
+#	end
 #end
 
 
@@ -78,7 +83,8 @@ class CHMWindowController < NSWindowController
 		browse @chm.home
 		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
 		@list.setDataSource(self)
-		@list.setDoubleAction("dblclicked_")
+		@list.setDoubleAction("clicked_")
+		@list.setAction("clicked_")
 		@search.setDelegate(self)
 		@drawer.open
 	end
@@ -132,9 +138,9 @@ class CHMWindowController < NSWindowController
 
 	def filtering(str)
 		if str =~ /[A-Z]/
-			r = /#{str}/
+			r = /^#{str}/
 		else
-			r = /#{str}/i
+			r = /^#{str}/i
 		end
 		@now = @index.select {|k,v|
 			k =~ r
@@ -142,7 +148,7 @@ class CHMWindowController < NSWindowController
 		@list.reloadData
 	end
 
-	def dblclicked(sender)
+	def clicked(sender)
 		browse @now[@list.selectedRow][1].first
 	end
 
