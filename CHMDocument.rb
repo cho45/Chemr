@@ -45,6 +45,27 @@ class CHMDocument < NSDocument
 	end
 end
 
+#class MySCWindow < NSWindow
+#
+#	attr_accessor :list
+#
+#	ib_action :keyDown do |e|
+#		log "keyDown #{e.keyCode} #{e.characters}"
+#	end
+#
+#	ib_action :moveDown do |sender|
+#		log "moveDown"
+#	end
+#
+#	ib_action :mouseDown do |sender|
+#		log "mouseDown"
+#	end
+#
+#	ib_action :moveUp do |sender|
+#		log "moveUp"
+#	end
+#end
+
 
 class CHMWindowController < NSWindowController
 	ib_outlet :webview
@@ -74,7 +95,7 @@ class CHMWindowController < NSWindowController
 #	def tableView_setObjectValue_forTableColumn_row(table, value, column, row)
 #	end
 
-#	def tableView_willDisplayCell_forTableColumn_row(table, cell, column, row)
+	def tableView_willDisplayCell_forTableColumn_row(table, cell, column, row)
 #		case column.identifier.to_s
 #		when 'regexp'
 #		when 'color'
@@ -85,7 +106,7 @@ class CHMWindowController < NSWindowController
 #			cell.setBackgroundColor(NSColor.blackColor)
 #		when 'hilight'
 #		end
-#	end
+	end
 
 	def textShouldBeginEditing(text)
 		true
@@ -101,6 +122,7 @@ class CHMWindowController < NSWindowController
 
 	def controlTextDidChange(anot)
 		filtering @search.stringValue
+		@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(0), false)
 	end
 
 	def controlTextDidEndEditing(anot)
@@ -109,26 +131,31 @@ class CHMWindowController < NSWindowController
 	end
 
 	def filtering(str)
-		r = /#{str}/i
+		if str =~ /[A-Z]/
+			r = /#{str}/
+		else
+			r = /#{str}/i
+		end
 		@now = @index.select {|k,v|
 			k =~ r
 		}.sort_by {|k,v| k }
 		@list.reloadData
-		@list.selectColumnIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(0), false)
 	end
 
 	def dblclicked(sender)
-		log "dbl"
 		browse @now[@list.selectedRow][1].first
 	end
 
 	def browse(path)
-		path = "/#{path}" unless path[0] == ?/
-		r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(@chm, path)
-		@webview.mainFrame.loadRequest r
+		if path
+			path = "/#{path}" unless path[0] == ?/
+			r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(@chm, path)
+			@webview.mainFrame.loadRequest r
+		end
 	end
 
 	def searchActivate(sender)
-		@search.focus
+		log "activate"
+		@search.window.makeFirstResponder(@search)
 	end
 end
