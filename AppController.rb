@@ -10,7 +10,6 @@ class CHMInternalURLProtocol < NSURLProtocol
 	SCHEME = "chm-internal"
 
 	def self.url_for(doc, path)
-		# TODO: weak ref
 		url = "#{SCHEME}://#{doc.object_id}#{path}"
 		NSURL.URLWithString_relativeToURL(url, "#{SCHEME}://#{doc.object_id}/")
 	end
@@ -19,19 +18,16 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#+ (BOOL)canHandleURL:(NSURL *)anURL;
 	def self.canHandleURL(url)
-		log url
 		url.scheme == SCHEME
 	end
 
 	#+ (BOOL)canInitWithRequest:(NSURLRequest *)request
 	def self.canInitWithRequest(req)
-		log req
 		canHandleURL(req.URL)
 	end
 
 	#+ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
 	def self.canonicalRequestForRequest(req)
-		log req
 		req
 	end
 
@@ -44,10 +40,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 	def startLoading
 		log "startLoading"
 		url = request.URL
-		log url.host
-		log url.path
 		chm = ObjectSpace._id2ref(url.host.to_s.to_i)
-		log chm
 
 		text = chm.retrieve_object(url.path.to_s)
 		# data = NSData.dataWithBytesNoCopy_length(text, text.length)
@@ -55,7 +48,8 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 		response = NSURLResponse.alloc.objc_send(
 			:initWithURL, url,
-			:MIMEType, "application/octet-stream",
+			#:MIMEType, "application/octet-stream",
+			:MIMEType, "text/html",
 			:expectedContentLength, data.length,
 			:textEncodingName, nil
 		)
@@ -79,14 +73,6 @@ end
 
 require "chm"
 class AppController < NSObject
-	ib_outlets :webview
-
-
-	ib_action :open do |sender|
-	end
-
-	ib_action :close do |sender|
-	end
 
 	def awakeFromNib
 	end
@@ -95,16 +81,14 @@ class AppController < NSObject
 		r = NSURLProtocol.registerClass CHMInternalURLProtocol
 		log "Register: #{r}"
 
-		chm = Chmlib::Chm.new("/Users/cho45/tmp/ruby-refm-rdp-1.9.0-ja-htmlhelp_css/rubymanjp.chm")
-		log chm
-		r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(chm, chm.home)
-		@webview.mainFrame.loadRequest r
+		# "/Users/cho45/tmp/ruby-refm-rdp-1.9.0-ja-htmlhelp_css/rubymanjp.chm"
 	end
 
 	def applicationWillTerminate(n)
 		NSURLProtocol.unregisterClass CHMInternalURLProtocol
 		log "Unregister"
 	end
+
 end
 
 

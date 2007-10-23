@@ -4,6 +4,27 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>chm</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string></string>
+			<key>CFBundleTypeName</key>
+			<string>Compiled HTML Help</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>CHM </string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>NSDocumentClass</key>
+			<string>CHMDocument</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>Chemr</string>
 	<key>CFBundleIconFile</key>
@@ -21,7 +42,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.apple.rubycocoa.ChemrApp</string>
+	<string>com.apple.rubycocoa.ChemrDocBasedApp</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 </dict>
