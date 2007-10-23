@@ -38,7 +38,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#-(void)startLoading
 	def startLoading
-		log "startLoading"
+		# log "startLoading"
 		url = request.URL
 		chm = ObjectSpace._id2ref(url.host.to_s.to_i)
 
@@ -64,7 +64,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#-(void)stopLoading
 	def stopLoading
-		log "stopLoading"
+		# log "stopLoading"
 	end
 
 	#-(NSCachedURLResponse *)cachedResponse
