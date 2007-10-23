@@ -1,0 +1,276 @@
+{
+    archiveVersion = 1; 
+    classes = {}; 
+    objectVersion = 42; 
+    objects = {
+        080E96DDFE201D6D7F000001 = {
+            children = (8AB11017C292A6A022C3655E); 
+            isa = PBXGroup; 
+            name = Classes; 
+            sourceTree = "<group>"; 
+        }; 
+        089C165CFE840E0CC02AAC07 = {
+            children = (089C165DFE840E0CC02AAC07); 
+            isa = PBXVariantGroup; 
+            name = "InfoPlist.strings"; 
+            sourceTree = "<group>"; 
+        }; 
+        089C165DFE840E0CC02AAC07 = {
+            fileEncoding = 10; 
+            isa = PBXFileReference; 
+            lastKnownFileType = "text.plist.strings"; 
+            name = English; 
+            path = "English.lproj/InfoPlist.strings"; 
+            sourceTree = "<group>"; 
+        }; 
+        1058C7A0FEA54F0111CA2CBB = {
+            children = (1058C7A1FEA54F0111CA2CBB, E8F5E24E03AEB6EC03A81C6F); 
+            isa = PBXGroup; 
+            name = "Linked Frameworks"; 
+            sourceTree = "<group>"; 
+        }; 
+        1058C7A1FEA54F0111CA2CBB = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "wrapper.framework"; 
+            name = "Cocoa.framework"; 
+            path = "/System/Library/Frameworks/Cocoa.framework"; 
+            sourceTree = "<absolute>"; 
+        }; 
+        1058C7A2FEA54F0111CA2CBB = {
+            children = (29B97325FDCFA39411CA2CEA, 29B97324FDCFA39411CA2CEA); 
+            isa = PBXGroup; 
+            name = "Other Frameworks"; 
+            sourceTree = "<group>"; 
+        }; 
+        19C28FACFE9D520D11CA2CBB = {
+            children = (4DDCA7120ACC9A6100E082CE); 
+            isa = PBXGroup; 
+            name = Products; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97313FDCFA39411CA2CEA = {
+            buildConfigurationList = 4D7A7B570ABF745500C2D4C0; 
+            compatibilityVersion = "Xcode 2.4"; 
+            hasScannedForEncodings = 0; 
+            isa = PBXProject; 
+            mainGroup = 29B97314FDCFA39411CA2CEA; 
+            projectDirPath = ""; 
+            projectRoot = ""; 
+            shouldCheckCompatibility = 1; 
+            targets = (4DDCA7030ACC9A6100E082CE); 
+        }; 
+        29B97314FDCFA39411CA2CEA = {
+            children = (
+                080E96DDFE201D6D7F000001, 
+                29B97315FDCFA39411CA2CEA, 
+                29B97317FDCFA39411CA2CEA, 
+                29B97323FDCFA39411CA2CEA, 
+                19C28FACFE9D520D11CA2CBB, 
+                4DDCA7110ACC9A6100E082CE
+            ); 
+            isa = PBXGroup; 
+            name = Chemr; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97315FDCFA39411CA2CEA = {
+            children = (29B97316FDCFA39411CA2CEA, E8F5E25803AEB7C803A81C6F); 
+            isa = PBXGroup; 
+            name = "Other Sources"; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97316FDCFA39411CA2CEA = {
+            fileEncoding = 30; 
+            isa = PBXFileReference; 
+            lastKnownFileType = "sourcecode.c.objc"; 
+            path = "main.m"; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97317FDCFA39411CA2CEA = {
+            children = (29B97318FDCFA39411CA2CEA, 089C165CFE840E0CC02AAC07); 
+            isa = PBXGroup; 
+            name = Resources; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97318FDCFA39411CA2CEA = {
+            children = (29B97319FDCFA39411CA2CEA); 
+            isa = PBXVariantGroup; 
+            name = "MainMenu.nib"; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97319FDCFA39411CA2CEA = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "wrapper.nib"; 
+            name = English; 
+            path = "English.lproj/MainMenu.nib"; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97323FDCFA39411CA2CEA = {
+            children = (1058C7A0FEA54F0111CA2CBB, 1058C7A2FEA54F0111CA2CBB); 
+            isa = PBXGroup; 
+            name = Frameworks; 
+            sourceTree = "<group>"; 
+        }; 
+        29B97324FDCFA39411CA2CEA = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "wrapper.framework"; 
+            name = "AppKit.framework"; 
+            path = "/System/Library/Frameworks/AppKit.framework"; 
+            sourceTree = "<absolute>"; 
+        }; 
+        29B97325FDCFA39411CA2CEA = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "wrapper.framework"; 
+            name = "Foundation.framework"; 
+            path = "/System/Library/Frameworks/Foundation.framework"; 
+            sourceTree = "<absolute>"; 
+        }; 
+        4D7A7B570ABF745500C2D4C0 = {
+            buildConfigurations = (4D7A7B580ABF745500C2D4C0, 4D7A7B590ABF745500C2D4C0); 
+            defaultConfigurationIsVisible = 0; 
+            defaultConfigurationName = Release; 
+            isa = XCConfigurationList; 
+        }; 
+        4D7A7B580ABF745500C2D4C0 = {
+            buildSettings = {
+                "GCC_WARN_ABOUT_RETURN_TYPE" = YES; 
+                "GCC_WARN_UNUSED_VARIABLE" = YES; 
+                PREBINDING = NO; 
+            }; 
+            isa = XCBuildConfiguration; 
+            name = Debug; 
+        }; 
+        4D7A7B590ABF745500C2D4C0 = {
+            buildSettings = {
+                "GCC_WARN_ABOUT_RETURN_TYPE" = YES; 
+                "GCC_WARN_UNUSED_VARIABLE" = YES; 
+                PREBINDING = NO; 
+            }; 
+            isa = XCBuildConfiguration; 
+            name = Release; 
+        }; 
+        4DDCA7030ACC9A6100E082CE = {
+            buildConfigurationList = 4DDCA70E0ACC9A6100E082CE; 
+            buildPhases = (
+                4DDCA7040ACC9A6100E082CE, 
+                4DDCA7050ACC9A6100E082CE, 
+                4DDCA7090ACC9A6100E082CE, 
+                4DDCA70B0ACC9A6100E082CE
+            ); 
+            buildRules = (); 
+            dependencies = (); 
+            isa = PBXNativeTarget; 
+            name = Chemr; 
+            productInstallPath = "$(HOME)/Applications"; 
+            productName = Chemr; 
+            productReference = 4DDCA7120ACC9A6100E082CE; 
+            productType = "com.apple.product-type.application"; 
+        }; 
+        4DDCA7040ACC9A6100E082CE = {
+            buildActionMask = 2147483647; 
+            files = (); 
+            isa = PBXHeadersBuildPhase; 
+            runOnlyForDeploymentPostprocessing = 0; 
+        }; 
+        4DDCA7050ACC9A6100E082CE = {
+            buildActionMask = 2147483647; 
+            files = (
+                4DDCA7060ACC9A6100E082CE, 
+                4DDCA7070ACC9A6100E082CE, 
+                4DDCA7080ACC9A6100E082CE, 
+                66A6C82F42B999DC7901B1D6
+            ); 
+            isa = PBXResourcesBuildPhase; 
+            runOnlyForDeploymentPostprocessing = 0; 
+        }; 
+        4DDCA7060ACC9A6100E082CE = {fileRef = 29B97318FDCFA39411CA2CEA; isa = PBXBuildFile; }; 
+        4DDCA7070ACC9A6100E082CE = {fileRef = 089C165CFE840E0CC02AAC07; isa = PBXBuildFile; }; 
+        4DDCA7080ACC9A6100E082CE = {fileRef = E8F5E25803AEB7C803A81C6F; isa = PBXBuildFile; }; 
+        4DDCA7090ACC9A6100E082CE = {
+            buildActionMask = 2147483647; 
+            files = (4DDCA70A0ACC9A6100E082CE); 
+            isa = PBXSourcesBuildPhase; 
+            runOnlyForDeploymentPostprocessing = 0; 
+        }; 
+        4DDCA70A0ACC9A6100E082CE = {
+            fileRef = 29B97316FDCFA39411CA2CEA; 
+            isa = PBXBuildFile; 
+            settings = {ATTRIBUTES = (); }; 
+        }; 
+        4DDCA70B0ACC9A6100E082CE = {
+            buildActionMask = 2147483647; 
+            files = (4DDCA70C0ACC9A6100E082CE, 4DDCA70D0ACC9A6100E082CE); 
+            isa = PBXFrameworksBuildPhase; 
+            runOnlyForDeploymentPostprocessing = 0; 
+        }; 
+        4DDCA70C0ACC9A6100E082CE = {fileRef = 1058C7A1FEA54F0111CA2CBB; isa = PBXBuildFile; }; 
+        4DDCA70D0ACC9A6100E082CE = {fileRef = E8F5E24E03AEB6EC03A81C6F; isa = PBXBuildFile; }; 
+        4DDCA70E0ACC9A6100E082CE = {
+            buildConfigurations = (4DDCA70F0ACC9A6100E082CE, 4DDCA7100ACC9A6100E082CE); 
+            defaultConfigurationIsVisible = 0; 
+            defaultConfigurationName = Release; 
+            isa = XCConfigurationList; 
+        }; 
+        4DDCA70F0ACC9A6100E082CE = {
+            buildSettings = {
+                "COPY_PHASE_STRIP" = NO; 
+                "GCC_DYNAMIC_NO_PIC" = NO; 
+                "GCC_ENABLE_FIX_AND_CONTINUE" = YES; 
+                "GCC_MODEL_TUNING" = G5; 
+                "GCC_OPTIMIZATION_LEVEL" = 0; 
+                "INFOPLIST_FILE" = "Info.plist"; 
+                "INSTALL_PATH" = "$(HOME)/Applications"; 
+                "PRODUCT_NAME" = Chemr; 
+                "WRAPPER_EXTENSION" = app; 
+                "ZERO_LINK" = YES; 
+            }; 
+            isa = XCBuildConfiguration; 
+            name = Debug; 
+        }; 
+        4DDCA7100ACC9A6100E082CE = {
+            buildSettings = {
+                "GCC_GENERATE_DEBUGGING_SYMBOLS" = NO; 
+                "GCC_MODEL_TUNING" = G5; 
+                "INFOPLIST_FILE" = "Info.plist"; 
+                "INSTALL_PATH" = "$(HOME)/Applications"; 
+                "PRODUCT_NAME" = Chemr; 
+                "WRAPPER_EXTENSION" = app; 
+            }; 
+            isa = XCBuildConfiguration; 
+            name = Release; 
+        }; 
+        4DDCA7110ACC9A6100E082CE = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "text.xml"; 
+            path = "Info.plist"; 
+            sourceTree = "<group>"; 
+        }; 
+        4DDCA7120ACC9A6100E082CE = {
+            explicitFileType = "wrapper.application"; 
+            includeInIndex = 0; 
+            isa = PBXFileReference; 
+            path = "Chemr.app"; 
+            sourceTree = "BUILT_PRODUCTS_DIR"; 
+        }; 
+        66A6C82F42B999DC7901B1D6 = {fileRef = 8AB11017C292A6A022C3655E; isa = PBXBuildFile; }; 
+        8AB11017C292A6A022C3655E = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "text.script.ruby"; 
+            path = "AppController.rb"; 
+            sourceTree = "<group>"; 
+        }; 
+        E8F5E24E03AEB6EC03A81C6F = {
+            isa = PBXFileReference; 
+            lastKnownFileType = file; 
+            name = "RubyCocoa.framework"; 
+            path = "/Library/Frameworks/RubyCocoa.framework"; 
+            sourceTree = "<absolute>"; 
+        }; 
+        E8F5E25803AEB7C803A81C6F = {
+            isa = PBXFileReference; 
+            lastKnownFileType = "text.script.ruby"; 
+            path = "rb_main.rb"; 
+            sourceTree = "<group>"; 
+        }; 
+    }; 
+    rootObject = 29B97313FDCFA39411CA2CEA; 
+}
