@@ -160,8 +160,23 @@ class CHMWindowController < NSWindowController
 		end
 	end
 
+	# from menu
 	def searchActivate(sender)
 		log "activate"
 		@search.window.makeFirstResponder(@search)
+	end
+
+	def nextCandidate(sender)
+		if @list.selectedRow <= @now.size
+			@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(@list.selectedRow+1), false)
+			clicked(nil)
+		end
+	end
+
+	def prevCandidate(sender)
+		if @list.selectedRow > 0
+			@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(@list.selectedRow-1), false)
+			clicked(nil)
+		end
 	end
 end

@@ -2,7 +2,7 @@
     IBClasses = (
         {CLASS = AppController; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            ACTIONS = {searchActivate = id; }; 
+            ACTIONS = {nextCandidate = id; prevCandidate = id; searchActivate = id; }; 
             CLASS = FirstResponder; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
