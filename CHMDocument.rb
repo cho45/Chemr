@@ -137,6 +137,7 @@ class CHMWindowController < NSWindowController
 	end
 
 	def filtering(str)
+		str = str.to_s
 		if str =~ /[A-Z]/
 			r = /^#{str}/
 		else
