@@ -72,7 +72,19 @@ class CHMInternalURLProtocol < NSURLProtocol
 end
 
 require "chm"
+require "pathname"
+
 class AppController < NSObject
+
+	ib_action :about do |sender|
+		path = Pathname.new NSBundle.mainBundle.resourcePath.to_s
+		OSX::NSApp.orderFrontStandardAboutPanelWithOptions({
+		#	'Credits' => nil,
+			'Copyright'          => 'GPL by cho45(さとう) see README/COPYING',
+			'Version'            => (File.read(path + 'VERSION') rescue "0/Unpackaged Test"),
+			'ApplicationVersion' => '0'
+		})
+	end
 
 	def awakeFromNib
 	end

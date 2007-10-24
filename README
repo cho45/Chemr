@@ -16,8 +16,10 @@ Chemr is designed for good indexed CHMs for example reference manuals.
 
 == Release/Download ==
 
-Not yet.
+Latest announces:
 
+ * http://subtech.g.hatena.ne.jp/cho45/
+ * http://coderepos.org/share/wiki/Chemr
 
 == Repository ==
 
@@ -28,6 +30,9 @@ Also requires chmlib and chmlib ruby binding and latest RubyCocoa:
   * http://www.jedrea.com/chmlib/
   * http://svn.coderepos.org/share/lang/ruby/chm/
   * http://rubycocoa.sourceforge.net/
+
+My Rakefile uses 'rubycocoa' command which is in
+rubycocoa repository.
 
 
 == Copyright ==
