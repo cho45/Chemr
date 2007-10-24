@@ -195,6 +195,7 @@ class CHMWindowController < NSWindowController
 	def nextCandidate(sender)
 		if @list.selectedRow <= @now.size
 			@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(@list.selectedRow+1), false)
+			@list.scrollRowToVisible(@list.selectedRow)
 			clicked(nil)
 		end
 	end
@@ -202,6 +203,7 @@ class CHMWindowController < NSWindowController
 	def prevCandidate(sender)
 		if @list.selectedRow > 0
 			@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(@list.selectedRow-1), false)
+			@list.scrollRowToVisible(@list.selectedRow)
 			clicked(nil)
 		end
 	end
