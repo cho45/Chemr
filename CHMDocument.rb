@@ -12,9 +12,6 @@ class CHMDocument < NSDocument
 	#- (BOOL)readFromURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
 	def readFromURL_ofType_error(url, type, error)
 		@chm = Chmlib::Chm.new(url.path.to_s)
-#		log chm
-#		r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(chm, chm.home)
-#		@webview.mainFrame.loadRequest r
 		true
 	end
 
@@ -34,8 +31,13 @@ class CHMDocument < NSDocument
 #	def loadDataRepresentation_ofType(data, aType)
 #	end
 
-#	def displayName
-#	end
+	def displayName
+		dc = NSDocumentController.sharedDocumentController
+		i = dc.documents.index(self) + 1
+		cmd = [8984].pack("U")
+		"#{cmd}#{i}| @chm.title"
+	end
+
 	def windowControllerWillLoadNib(cont)
 		log cont
 	end
@@ -178,7 +180,7 @@ class CHMWindowController < NSWindowController
 
 	def process_keybinds(e)
 		key = key_string(e)
-		#log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> '#{key}'"
+		log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> '#{key}'"
 		keybinds = {
 			"C-j" => self.method(:nextCandidate),
 			"C-n" => self.method(:nextCandidate),
@@ -210,6 +212,15 @@ class CHMWindowController < NSWindowController
 				@webview.makeTextSmaller(self)
 			},
 		}
+		(1..9).each do |i|
+			keybinds["G-#{i}"] = Proc.new {|s|
+				dc = NSDocumentController.sharedDocumentController
+				if dc.documents[i-1]
+					log(dc.documents[i-1].windowControllers)
+					dc.documents[i-1].windowControllers.first.showWindow(self)
+				end
+			}
+		end
 		if keybinds.key?(key)
 			keybinds[key].call(self)
 			true
