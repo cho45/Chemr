@@ -241,4 +241,38 @@ class CHMWindowController < NSWindowController
 		key << e.charactersIgnoringModifiers.to_s
 		key
 	end
+
+	# webview policyDelegate
+	def webView_decidePolicyForNavigationAction_request_frame_decisionListener(
+		sender,
+		actionInformation,
+		request,
+		frame,
+		listener
+	)
+
+		if CHMInternalURLProtocol.canHandleURL(request.URL)
+			listener.use
+		else
+			NSWorkspace.sharedWorkspace.openURL(request.URL)
+			listener.ignore
+		end
+	end
+
+	def webView_decidePolicyForNewWindowAction_request_newFrameName_decisionListener(
+		sender,
+		actionInformation,
+		request,
+		frameName,
+		listener
+	)
+		if CHMInternalURLProtocol.canHandleURL(request.URL)
+			listener.use
+		else
+			NSWorkspace.sharedWorkspace.openURL(request.URL)
+			listener.ignore
+		end
+	end
+
+
 end
