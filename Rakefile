@@ -60,6 +60,7 @@ task :package => ["xcode:build:#{DEFAULT_TARGET}:#{RELEASE_CONFIGURATION}", "pkg
   name = "#{APPNAME}.#{VERSION}"
   mkdir "image"
   sh %{rubycocoa standaloneify "build/#{DEFAULT_CONFIGURATION}/#{APPNAME}.app" "image/#{APPNAME}.app"}
+  #cp "lib/libchm.0.0.0.dylib", "image/#{APPNAME}.app/Contents/Resources"
   puts 'Creating Image...'
   sh %{
   hdiutil create -volname '#{name}' -srcfolder image '#{name}'.dmg

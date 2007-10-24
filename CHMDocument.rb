@@ -120,12 +120,12 @@ class CHMWindowController < NSWindowController
 
 	def controlTextDidEndEditing(anot)
 		log "end #{@now.first.inspect}"
-		#jumpToCurrent
 	end
 
 	def jumpToCurrent(sender)
 		unless @now.length.zero?
-			browse @now.first[1].first
+			#browse @now.first[1].first
+			clicked(sender)
 		end
 	end
 
@@ -149,8 +149,11 @@ class CHMWindowController < NSWindowController
 	def browse(path)
 		if path
 			path = "/#{path}" unless path[0] == ?/
-			r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(@chm, path)
-			@webview.mainFrame.loadRequest r
+			h = @webview.stringByEvaluatingJavaScriptFromString("location.pathname+location.hash")
+			unless path == h
+				r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(@chm, path)
+				@webview.mainFrame.loadRequest r
+			end
 		end
 	end
 
