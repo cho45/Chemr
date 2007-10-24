@@ -178,12 +178,37 @@ class CHMWindowController < NSWindowController
 
 	def process_keybinds(e)
 		key = key_string(e)
-		log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> #{key}"
+		#log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> '#{key}'"
 		keybinds = {
 			"C-j" => self.method(:nextCandidate),
+			"C-n" => self.method(:nextCandidate),
 			"C-k" => self.method(:prevCandidate),
+			"C-p" => self.method(:prevCandidate),
 			"\r"  => self.method(:jumpToCurrent),
 			"\t"  => self.method(:completion),
+			" "   => Proc.new {|s|
+				@webview.stringByEvaluatingJavaScriptFromString <<-JS
+					window.scrollBy(0, 200);
+				JS
+			},
+			"C-u" => Proc.new {|s|
+				@search.stringValue = ""
+			},
+			"G-[" => Proc.new {|s|
+				@webview.goBack
+			},
+			"G-]" => Proc.new {|s|
+				@webview.goForward
+			},
+			"G-F" => Proc.new {|s|
+				@webview.performFindPanelAction(self)
+			},
+			"G-=" => Proc.new {|s|
+				@webview.makeTextLarger(self)
+			},
+			"G--" => Proc.new {|s|
+				@webview.makeTextSmaller(self)
+			},
 		}
 		if keybinds.key?(key)
 			keybinds[key].call(self)
@@ -199,8 +224,8 @@ class CHMWindowController < NSWindowController
 		key << "S-" if m & NSShiftKeyMask > 0
 		key << "C-" if m & NSControlKeyMask > 0
 		key << "M-" if m & NSAlternateKeyMask > 0
-		key << "%-" if m & NSCommandKeyMask > 0 # TODO
-		key << e.charactersIgnoringModifiers
+		key << "G-" if m & NSCommandKeyMask > 0 # TODO
+		key << e.charactersIgnoringModifiers.to_s
 		key
 	end
 end
