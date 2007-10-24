@@ -12,7 +12,7 @@
 				<string>chm</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>file.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>Compiled HTML Help</string>
 			<key>CFBundleTypeOSTypes</key>

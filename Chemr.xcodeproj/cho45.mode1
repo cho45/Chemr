@@ -259,28 +259,23 @@
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
+								<string>089C165CFE840E0CC02AAC07</string>
 								<string>29B97323FDCFA39411CA2CEA</string>
 								<string>1058C7A2FEA54F0111CA2CBB</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>742F61420CCEF4490063B3E6</string>
-								<string>742F61430CCEF4490063B3E6</string>
-								<string>1058C7A1FEA54F0111CA2CBB</string>
-								<string>742F61380CCEF3D30063B3E6</string>
 								<string>1C37FABC05509CD000000102</string>
 								<string>E2644B35053B69B200211256</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>26</integer>
-									<integer>25</integer>
-									<integer>21</integer>
-									<integer>20</integer>
+									<integer>7</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 329}, {373, 314}}</string>
+							<string>{{0, 0}, {373, 314}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -380,9 +375,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>742F61440CCEF4490063B3E6</string>
+				<string>74E391380CCF36B1007A565D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>742F61450CCEF4490063B3E6</string>
+				<string>74E391390CCF36B1007A565D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -516,7 +511,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>742F614C0CCEF4490063B3E6</string>
+		<string>74E391400CCF36B1007A565D</string>
 		<string>1C0AD2B3069F1EA900FABCE6</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/cho45/coderepos/lang/ruby/Chemr/Chemr.xcodeproj</string>
@@ -641,8 +636,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {277, 157}}</string>
-											<string>{{277, 0}, {417, 157}}</string>
+											<string>{{0, 0}, {249, 152}}</string>
+											<string>{{249, 0}, {445, 152}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -657,8 +652,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 157}}</string>
-											<string>{{0, 157}, {694, 224}}</string>
+											<string>{{0, 0}, {694, 152}}</string>
+											<string>{{0, 152}, {694, 229}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -705,14 +700,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>742F61460CCEF4490063B3E6</string>
+				<string>74E3913A0CCF36B1007A565D</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>742F61470CCEF4490063B3E6</string>
-				<string>742F61480CCEF4490063B3E6</string>
-				<string>742F61490CCEF4490063B3E6</string>
-				<string>742F614A0CCEF4490063B3E6</string>
-				<string>742F614B0CCEF4490063B3E6</string>
-				<string>742F614C0CCEF4490063B3E6</string>
+				<string>74E3913B0CCF36B1007A565D</string>
+				<string>74E3913C0CCF36B1007A565D</string>
+				<string>74E3913D0CCF36B1007A565D</string>
+				<string>74E3913E0CCF36B1007A565D</string>
+				<string>74E3913F0CCF36B1007A565D</string>
+				<string>74E391400CCF36B1007A565D</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -919,8 +914,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {491, 168}}</string>
-											<string>{{0, 173}, {491, 270}}</string>
+											<string>{{0, 0}, {367, 168}}</string>
+											<string>{{0, 173}, {367, 270}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -969,9 +964,9 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>742F614D0CCEF4490063B3E6</string>
+				<string>74E391410CCF36B1007A565D</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>742F614E0CCEF4490063B3E6</string>
+				<string>74E391420CCF36B1007A565D</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>

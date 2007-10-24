@@ -11,6 +11,8 @@ Chemr is an application for reading CHM (Compiled HTML Help).
  * Incremental index search
  * Useful keybinds
 
+Chemr is designed for good indexed CHMs for example reference manuals.
+
 
 == Release/Download ==
 
