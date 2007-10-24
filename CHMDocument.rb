@@ -35,7 +35,7 @@ class CHMDocument < NSDocument
 		dc = NSDocumentController.sharedDocumentController
 		i = dc.documents.index(self) + 1
 		cmd = [8984].pack("U")
-		"#{cmd}#{i}| @chm.title"
+		"#{cmd}#{i}| #{@chm.title}"
 	end
 
 	def windowControllerWillLoadNib(cont)
