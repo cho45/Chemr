@@ -138,7 +138,7 @@ class CHMWindowController < NSWindowController
 		end
 		@now = @index.select {|k,v|
 			k =~ r
-		}.sort_by {|k,v| k }
+		}.sort_by {|k,v| k.length }
 		@list.reloadData
 	end
 
@@ -173,7 +173,6 @@ class CHMWindowController < NSWindowController
 			end
 		else
 			keys[0].zip(*keys[1..-1]) do |a|
-				log a
 				m = a.first.downcase
 				if a.all? {|v| v && (m == v.downcase)}
 					common << m
