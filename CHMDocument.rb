@@ -124,7 +124,9 @@ class CHMWindowController < NSWindowController
 	end
 
 	def jumpToCurrent(sender)
-		browse @now.first[1].first
+		unless @now.length.zero?
+			browse @now.first[1].first
+		end
 	end
 
 	def filtering(str)
