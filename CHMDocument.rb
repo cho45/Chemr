@@ -63,6 +63,7 @@ require "uri"
 class CHMWindowController < NSWindowController
 	ib_outlet :webview
 	ib_outlet :list
+	ib_outlet :tree
 	ib_outlet :drawer
 	ib_outlet :search
 
@@ -70,15 +71,69 @@ class CHMWindowController < NSWindowController
 		@chm = self.document.chm
 		uri  = URI(self.document.fileURL.absoluteString)
 		log uri
-		@chm.instance_variable_set(:@home, "/") if File.basename(uri.path, ".chm") == File.basename(@chm.home)
 		browse @chm.home
 		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
 		@list.setDataSource(self)
 		@list.setDoubleAction("clicked_")
 		@list.setAction("clicked_")
+
+		@tree.setAction("treeclicked_")
+		Thread.start do
+			@chm.topics
+			# タイミングの問題?で BUS Error になるのでコメントアウト
+			# どうせツリーなんかつかわないよね
+			# @tree.setDataSource(self)
+		end
+
 		@search.setDelegate(self)
 		@drawer.open
 	end
+
+	# OutlineView
+	#    * outlineView:child:ofItem:
+	#    * outlineView:isItemExpandable:
+	#    * outlineView:numberOfChildrenOfItem:
+	#    * outlineView:objectValueForTableColumn:byItem:
+	#    * outlineView:setObjectValue:forTableColumn:byItem:
+
+	def outlineView_child_ofItem(ov, index, item)
+		if item
+			item[:children][index]
+		else
+			@topics[index]
+		end
+	end
+
+	def outlineView_isItemExpandable(ov, item)
+		if item
+			item[:children].length.nonzero?
+		else
+			@topics.length.nonzero?
+		end
+	end
+
+	def outlineView_numberOfChildrenOfItem(ov, item)
+		if item
+			item[:children].length
+		else
+			@topics.length
+		end
+	end
+
+	def outlineView_objectValueForTableColumn_byItem(ov, column, item)
+		if item
+			item[:name]
+		else
+			""
+		end
+	end
+
+	def treeclicked(sender)
+		path = sender.itemAtRow(sender.selectedRow)[:local]
+		log "Tree Clicked: #{path}"
+		browse path unless path.empty?
+	end
+
 
 	# Tableview
 	def numberOfRowsInTableView(table)
@@ -89,20 +144,10 @@ class CHMWindowController < NSWindowController
 		@now[row][0]
 	end
 
-#	def tableView_setObjectValue_forTableColumn_row(table, value, column, row)
-#	end
+	def tableView_setObjectValue_forTableColumn_row(table, value, column, row)
+	end
 
 	def tableView_willDisplayCell_forTableColumn_row(table, cell, column, row)
-#		case column.identifier.to_s
-#		when 'regexp'
-#		when 'color'
-#			_, r, g, b = */(..)(..)(..)$/.match(cell.stringValue.to_s).to_a.map{|i| i.to_i(16) / 255.0 }
-#			color = NSColor.colorWithCalibratedRed_green_blue_alpha(r, g, b, 1)
-#			cell.setDrawsBackground(true)
-#			cell.setTextColor(color)
-#			cell.setBackgroundColor(NSColor.blackColor)
-#		when 'hilight'
-#		end
 	end
 
 	def textShouldBeginEditing(text)
@@ -116,6 +161,8 @@ class CHMWindowController < NSWindowController
 	def acceptsFirstResponder
 		true
 	end
+
+	# general
 
 	def controlTextDidChange(anot)
 		filtering @search.stringValue

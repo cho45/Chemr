@@ -1,6 +1,8 @@
 require 'osx/cocoa'
 include OSX
 
+require "uri"
+
 class CHMInternalURLProtocol < NSURLProtocol
 	#+ (void)registerContainer:(CHMContainer *)container;
 	#+ (void)unregisterContainer:(CHMContainer *)container;
@@ -10,8 +12,9 @@ class CHMInternalURLProtocol < NSURLProtocol
 	SCHEME = "chm-internal"
 
 	def self.url_for(doc, path)
-		url = "#{SCHEME}://#{doc.object_id}#{path}"
-		NSURL.URLWithString_relativeToURL(url, "#{SCHEME}://#{doc.object_id}/")
+		path = Pathname.new(path).cleanpath.to_s
+		url = URI("#{SCHEME}://obj:#{doc.object_id}/") + path
+		NSURL.URLWithString_relativeToURL(url.to_s, "#{SCHEME}://obj:#{doc.object_id}/")
 	end
 
 	# protocol
@@ -41,7 +44,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 	def startLoading
 		# log "startLoading"
 		url = request.URL
-		chm = ObjectSpace._id2ref(url.host.to_s.to_i)
+		chm = ObjectSpace._id2ref(url.port.to_s.to_i)
 
 		text = ""
 		begin

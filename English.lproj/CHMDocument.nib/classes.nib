@@ -3,7 +3,7 @@
         {
             CLASS = CHMWindowController; 
             LANGUAGE = ObjC; 
-            OUTLETS = {drawer = id; list = id; search = id; webview = id; }; 
+            OUTLETS = {drawer = id; list = id; search = id; tree = id; webview = id; }; 
             SUPERCLASS = NSWindowController; 
         }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
