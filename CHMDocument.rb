@@ -45,31 +45,16 @@ class CHMDocument < NSDocument
 	end
 end
 
-#class MySearchField < NSSearchField
-#
-#	attr_accessor :list
-#
-#	ib_action :keyDown do |e|
-#		log "keyDown #{e.keyCode} #{e.characters}"
-#	end
-#
-#	ib_action :moveDown do |sender|
-#		log "moveDown"
-#	end
-#
-#	ib_action :mouseDown do |sender|
-#		log "mouseDown"
-#	end
-#
-#	ib_action :moveUp do |sender|
-#		log "moveUp"
-#	end
-#
-#	def performKeyEquivalent(e)
-#		log "performKeyEquivalent"
-#		false
-#	end
-#end
+class MySearchWindow < NSWindow
+
+	def sendEvent(e)
+		if e.oc_type == NSKeyDown
+			return if delegate.process_keybinds(e)
+		end
+		super_sendEvent(e)
+	end
+
+end
 
 
 class CHMWindowController < NSWindowController
@@ -133,6 +118,10 @@ class CHMWindowController < NSWindowController
 
 	def controlTextDidEndEditing(anot)
 		log "end #{@now.first.inspect}"
+		#jumpToCurrent
+	end
+
+	def jumpToCurrent(sender)
 		browse @now.first[1].first
 	end
 
@@ -161,6 +150,10 @@ class CHMWindowController < NSWindowController
 		end
 	end
 
+	def completion(sender)
+		# not implemented yet
+	end
+
 	# from menu
 	def searchActivate(sender)
 		log "activate"
@@ -179,5 +172,35 @@ class CHMWindowController < NSWindowController
 			@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(@list.selectedRow-1), false)
 			clicked(nil)
 		end
+	end
+
+	# from MySearchWindow
+
+	def process_keybinds(e)
+		key = key_string(e)
+		log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> #{key}"
+		keybinds = {
+			"C-j" => self.method(:nextCandidate),
+			"C-k" => self.method(:prevCandidate),
+			"\r"  => self.method(:jumpToCurrent),
+			"\t"  => self.method(:completion),
+		}
+		if keybinds.key?(key)
+			keybinds[key].call(self)
+			true
+		else
+			false
+		end
+	end
+
+	def key_string(e)
+		key = ""
+		m = e.modifierFlags
+		key << "S-" if m & NSShiftKeyMask > 0
+		key << "C-" if m & NSControlKeyMask > 0
+		key << "M-" if m & NSAlternateKeyMask > 0
+		key << "%-" if m & NSCommandKeyMask > 0 # TODO
+		key << e.charactersIgnoringModifiers
+		key
 	end
 end
