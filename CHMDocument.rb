@@ -174,10 +174,7 @@ class CHMWindowController < NSWindowController
 	end
 
 	def jumpToCurrent(sender)
-		unless @now.length.zero?
-			#browse @now.first[1].first
-			clicked(sender)
-		end
+		clicked(sender)
 	end
 
 	def filtering(str)
@@ -194,7 +191,9 @@ class CHMWindowController < NSWindowController
 	end
 
 	def clicked(sender)
-		browse @now[@list.selectedRow][1].first
+		if @now[@list.selectedRow]
+			browse @now[@list.selectedRow][1].first
+		end
 	end
 
 	def browse(path)
@@ -203,6 +202,7 @@ class CHMWindowController < NSWindowController
 			h = @webview.stringByEvaluatingJavaScriptFromString("location.pathname+location.hash")
 			unless path == h
 				r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(@chm, path)
+				log r
 				@webview.mainFrame.loadRequest r
 			end
 		end

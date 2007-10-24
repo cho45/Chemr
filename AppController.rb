@@ -12,8 +12,10 @@ class CHMInternalURLProtocol < NSURLProtocol
 	SCHEME = "chm-internal"
 
 	def self.url_for(doc, path)
+		path.gsub!(/\\/, "/")
 		path = Pathname.new(path).cleanpath.to_s
 		url = URI("#{SCHEME}://obj:#{doc.object_id}/") + path
+		# log url
 		NSURL.URLWithString_relativeToURL(url.to_s, "#{SCHEME}://obj:#{doc.object_id}/")
 	end
 
@@ -21,12 +23,14 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#+ (BOOL)canHandleURL:(NSURL *)anURL;
 	def self.canHandleURL(url)
+		# log "canhandle #{url}"
 		return false unless url
 		url.scheme == SCHEME
 	end
 
 	#+ (BOOL)canInitWithRequest:(NSURLRequest *)request
 	def self.canInitWithRequest(req)
+		# log "canInitWithRequest: #{req.URL.absoluteString}"
 		canHandleURL(req.URL)
 	end
 
@@ -42,22 +46,18 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#-(void)startLoading
 	def startLoading
-		# log "startLoading"
+		log "startLoading #{request.URL.absoluteString}"
 		url = request.URL
 		chm = ObjectSpace._id2ref(url.port.to_s.to_i)
 
-		text = ""
-		begin
-			text = chm.retrieve_object(url.path.to_s)
-			# data = NSData.dataWithBytesNoCopy_length(text, text.length)
-		rescue Chmlib::Chm::ResolvError
-			log "Chmlib::Chm::ResolvError->#{url.path.to_s}"
-		end
+		log url.path.to_s
+		text = url.parameterString ? chm.retrieve_object("#{url.path};#{url.parameterString}") \
+		                           : chm.retrieve_object("#{url.path}")
+		raise "empty" if text.empty?
 		data = NSData.dataWithBytes_length(text, text.length)
 
 		response = NSURLResponse.alloc.objc_send(
 			:initWithURL, url,
-			#:MIMEType, "application/octet-stream",
 			:MIMEType, "text/html",
 			:expectedContentLength, data.length,
 			:textEncodingName, nil
@@ -67,8 +67,18 @@ class CHMInternalURLProtocol < NSURLProtocol
 			:didReceiveResponse, response,
 			:cacheStoragePolicy, NSURLCacheStorageNotAllowed
 		)
-		self.client.URLProtocol_didLoadData(self, data);
-		self.client.URLProtocolDidFinishLoading(self);
+		self.client.URLProtocol_didLoadData(self, data)
+		self.client.URLProtocolDidFinishLoading(self)
+	rescue => e
+		log "#{e}->#{url.path.to_s}"
+		self.client.objc_send(
+			:URLProtocol, self,
+			:didFailWithError, NSError.objc_send(
+				:errorWithDomain, NSURLErrorDomain,
+				:code, 0,
+				:userInfo, nil
+			)
+		)
 	end
 
 	#-(void)stopLoading

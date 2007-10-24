@@ -375,9 +375,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>74308F8C0CCF75EE0042B345</string>
+				<string>74DA09910CCFFB3500DDACCE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>74308F8D0CCF75EE0042B345</string>
+				<string>74DA09920CCFFB3500DDACCE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -511,10 +511,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>7443AFFF0CCE31D00050984A</string>
-		<string>74308F950CCF75EE0042B345</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>74DA09990CCFFB3500DDACCE</string>
 		<string>/Users/cho45/coderepos/lang/ruby/Chemr/Chemr.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C0AD2B3069F1EA900FABCE6</string>
 	</array>
 	<key>WindowString</key>
@@ -595,7 +594,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7443AFFF0CCE31D00050984A</string>
-				<string>74308F8E0CCF75EE0042B345</string>
+				<string>7477C1360CCFFAA000C679C4</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -637,8 +636,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {235, 149}}</string>
-											<string>{{235, 0}, {459, 149}}</string>
+											<string>{{0, 0}, {208, 144}}</string>
+											<string>{{208, 0}, {486, 144}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -653,8 +652,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 149}}</string>
-											<string>{{0, 149}, {694, 232}}</string>
+											<string>{{0, 0}, {694, 144}}</string>
+											<string>{{0, 144}, {694, 237}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -701,14 +700,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>74308F8F0CCF75EE0042B345</string>
+				<string>74DA09930CCFFB3500DDACCE</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>74308F900CCF75EE0042B345</string>
-				<string>74308F910CCF75EE0042B345</string>
-				<string>74308F920CCF75EE0042B345</string>
-				<string>74308F930CCF75EE0042B345</string>
-				<string>74308F940CCF75EE0042B345</string>
-				<string>74308F950CCF75EE0042B345</string>
+				<string>74DA09940CCFFB3500DDACCE</string>
+				<string>74DA09950CCFFB3500DDACCE</string>
+				<string>74DA09960CCFFB3500DDACCE</string>
+				<string>74DA09970CCFFB3500DDACCE</string>
+				<string>74DA09980CCFFB3500DDACCE</string>
+				<string>74DA09990CCFFB3500DDACCE</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -870,7 +869,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>742E83470CCE493B00738CBF</string>
-				<string>742E83480CCE493B00738CBF</string>
+				<string>7477C1410CCFFAD300C679C4</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>WindowString</key>
@@ -915,8 +914,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {367, 168}}</string>
-											<string>{{0, 173}, {367, 270}}</string>
+											<string>{{0, 0}, {366, 168}}</string>
+											<string>{{0, 173}, {366, 270}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -940,9 +939,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {459, 159}}</string>
+								<string>{{0, 0}, {1212, 159}}</string>
 								<key>RubberWindowFrame</key>
-								<string>316 530 459 200 0 0 1280 778 </string>
+								<string>12 577 1212 200 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXRunSessionModule</string>
@@ -965,14 +964,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>74308F960CCF75EE0042B345</string>
+				<string>74DA099A0CCFFB3500DDACCE</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>74308F970CCF75EE0042B345</string>
+				<string>74DA099B0CCFFB3500DDACCE</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>
 			<key>WindowString</key>
-			<string>316 530 459 200 0 0 1280 778 </string>
+			<string>12 577 1212 200 0 0 1280 778 </string>
 			<key>WindowToolGUID</key>
 			<string>1C0AD2B3069F1EA900FABCE6</string>
 			<key>WindowToolIsVisible</key>
