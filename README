@@ -1,6 +1,6 @@
 = Chemr =
 
-[[Image(http://f.hatena.ne.jp/images/fotolife/c/cho45/20071024/20071024041401.png, right)]]
+[[Image(http://f.hatena.ne.jp/images/fotolife/c/cho45/20071024/20071024233109.png, right)]]
 
 Chemr is an application for reading CHM (Compiled HTML Help).
 
@@ -14,7 +14,12 @@ Chemr is an application for reading CHM (Compiled HTML Help).
 Chemr is designed for good indexed CHMs for example reference manuals.
 
 
+
 == Release/Download ==
+
+Super Alpha (version 0):
+
+http://lab.lowreal.net/test/chemr/
 
 Latest announces:
 
@@ -31,7 +36,7 @@ Also requires chmlib and chmlib ruby binding and latest RubyCocoa:
   * http://svn.coderepos.org/share/lang/ruby/chm/
   * http://rubycocoa.sourceforge.net/
 
-My Rakefile uses 'rubycocoa' command which is in
+My Rakefile uses 'rubycocoa' command which is deep in
 rubycocoa repository.
 
 
@@ -44,4 +49,5 @@ Chemr draws upon
  * [http://gnochm.sourceforge.net/pychm.html PyCHM]
 
 Chemr is licensed under GPL. See COPYING.
+
 

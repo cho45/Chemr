@@ -71,6 +71,12 @@ task :package => ["xcode:build:#{DEFAULT_TARGET}:#{RELEASE_CONFIGURATION}", "pkg
   }
 end
 
+desc "Publish package to my site"
+task :publish => [:package] do
+  name = "#{APPNAME}.#{VERSION}"
+  sh %{scp "pkg/#{name}.dmg" c:www/lab.lowreal.net/public/test/chemr/}
+end
+
 directory 'pkg'
 
 desc 'Make Localized nib from English.lproj and Lang.lproj/nib.strings'
