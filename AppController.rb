@@ -51,6 +51,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 		chm = ObjectSpace._id2ref(url.port.to_s.to_i)
 
 		log url.path.to_s
+		raise "JS" if url.path.to_s =~ /\.js$/
 		text = url.parameterString ? chm.retrieve_object("#{url.path};#{url.parameterString}") \
 		                           : chm.retrieve_object("#{url.path}")
 		raise "empty" if text.empty?
