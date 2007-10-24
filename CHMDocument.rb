@@ -158,7 +158,33 @@ class CHMWindowController < NSWindowController
 	end
 
 	def completion(sender)
-		# not implemented yet
+		return if @search.stringValue.empty?
+		return if @now.empty?
+		common = ""
+		keys = @now.map{|k,v| k.split(//)}
+		if @search.stringValue.to_s =~ /[A-Z]/
+			keys[0].zip(*keys[1..-1]) do |a|
+				m = a.first
+				if a.all? {|v| m == v}
+					common << m
+				else
+					break
+				end
+			end
+		else
+			keys[0].zip(*keys[1..-1]) do |a|
+				log a
+				m = a.first.downcase
+				if a.all? {|v| v && (m == v.downcase)}
+					common << m
+				else
+					break
+				end
+			end
+		end
+		if common.length > @search.stringValue.length
+			@search.stringValue = common
+		end
 	end
 
 	# from menu
@@ -179,6 +205,14 @@ class CHMWindowController < NSWindowController
 			@list.selectRowIndexes_byExtendingSelection(NSIndexSet.alloc.initWithIndex(@list.selectedRow-1), false)
 			clicked(nil)
 		end
+	end
+
+	def jumpToHome(sender)
+		browse @chm.home
+	end
+
+	def performFindPanelAction(sender)
+		@webview.performFindPanelAction(sender)
 	end
 
 	# from MySearchWindow
@@ -206,9 +240,6 @@ class CHMWindowController < NSWindowController
 			},
 			"G-]" => Proc.new {|s|
 				@webview.goForward
-			},
-			"G-F" => Proc.new {|s|
-				@webview.performFindPanelAction(self)
 			},
 			"G-=" => Proc.new {|s|
 				@webview.makeTextLarger(self)
