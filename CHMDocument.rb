@@ -59,6 +59,7 @@ class MySearchWindow < NSWindow
 end
 
 
+require "uri"
 class CHMWindowController < NSWindowController
 	ib_outlet :webview
 	ib_outlet :list
@@ -67,6 +68,9 @@ class CHMWindowController < NSWindowController
 
 	def windowDidLoad
 		@chm = self.document.chm
+		uri  = URI(self.document.fileURL.absoluteString)
+		log uri
+		@chm.instance_variable_set(:@home, "/") if File.basename(uri.path, ".chm") == File.basename(@chm.home)
 		browse @chm.home
 		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
 		@list.setDataSource(self)

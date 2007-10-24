@@ -18,6 +18,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#+ (BOOL)canHandleURL:(NSURL *)anURL;
 	def self.canHandleURL(url)
+		return false unless url
 		url.scheme == SCHEME
 	end
 
@@ -42,8 +43,13 @@ class CHMInternalURLProtocol < NSURLProtocol
 		url = request.URL
 		chm = ObjectSpace._id2ref(url.host.to_s.to_i)
 
-		text = chm.retrieve_object(url.path.to_s)
-		# data = NSData.dataWithBytesNoCopy_length(text, text.length)
+		text = ""
+		begin
+			text = chm.retrieve_object(url.path.to_s)
+			# data = NSData.dataWithBytesNoCopy_length(text, text.length)
+		rescue Chmlib::Chm::ResolvError
+			log "Chmlib::Chm::ResolvError->#{url.path.to_s}"
+		end
 		data = NSData.dataWithBytes_length(text, text.length)
 
 		response = NSURLResponse.alloc.objc_send(
