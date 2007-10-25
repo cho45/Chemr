@@ -106,6 +106,12 @@ class AppController < NSObject
 		})
 	end
 
+	ib_action :find do |sender|
+		# やってもらう
+		cd = NSDocumentController.sharedDocumentController.currentDocument
+		cd.windowControllers.first.performFindPanelAction(sender)
+	end
+
 	def awakeFromNib
 	end
 
@@ -113,7 +119,6 @@ class AppController < NSObject
 		r = NSURLProtocol.registerClass CHMInternalURLProtocol
 		log "Register: #{r}"
 
-		# "/Users/cho45/tmp/ruby-refm-rdp-1.9.0-ja-htmlhelp_css/rubymanjp.chm"
 	end
 
 	def applicationWillTerminate(n)

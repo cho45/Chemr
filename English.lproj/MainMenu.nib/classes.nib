@@ -1,7 +1,7 @@
 {
     IBClasses = (
         {
-            ACTIONS = {about = id; }; 
+            ACTIONS = {about = id; find = id; }; 
             CLASS = AppController; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 

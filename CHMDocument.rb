@@ -264,7 +264,15 @@ class CHMWindowController < NSWindowController
 	end
 
 	def performFindPanelAction(sender)
-		@webview.performFindPanelAction(sender)
+		log "performFindPanelAction"
+		# @webview.performFindPanelAction(sender) # なぜかうごかない
+		text = @search.stringValue
+		@webview.objc_send(
+			:searchFor, text,
+			:direction, true,
+			:caseSensitive, false,
+			:wrap, false
+		)
 	end
 
 	# from MySearchWindow
@@ -358,6 +366,11 @@ class CHMWindowController < NSWindowController
 			NSWorkspace.sharedWorkspace.openURL(request.URL)
 			listener.ignore
 		end
+	end
+
+	# webview loading delegate
+	def webView_resource_didFinishLoadingFromDataSource(sender, id, datasource)
+#		log "loaded"
 	end
 
 
