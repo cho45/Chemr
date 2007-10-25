@@ -292,6 +292,17 @@ class CHMWindowController < NSWindowController
 					window.scrollBy(0, 200);
 				JS
 			},
+			"S- " => Proc.new {|s|
+				@webview.stringByEvaluatingJavaScriptFromString <<-JS
+					window.scrollBy(0, -200);
+				JS
+			},
+			"C-\r" => Proc.new {|s|
+				@now = @chm.search(@search.stringValue).map {|title,url|
+					[title, [url]]
+				}
+				@list.reloadData
+			},
 			"C-u" => Proc.new {|s|
 				@search.stringValue = ""
 			},
