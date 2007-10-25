@@ -278,6 +278,8 @@ class CHMWindowController < NSWindowController
 	# from MySearchWindow
 
 	def process_keybinds(e)
+		log NSInputManager.currentInputManager.markedRange.empty?
+		return false unless NSInputManager.currentInputManager.markedRange.empty?
 		key = key_string(e)
 		log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> '#{key}'"
 		keybinds = {
