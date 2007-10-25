@@ -78,12 +78,6 @@ class CHMWindowController < NSWindowController
 		@list.setAction("clicked_")
 
 		@tree.setAction("treeclicked_")
-		Thread.start do
-			@chm.topics
-			# タイミングの問題?で BUS Error になるのでコメントアウト
-			# どうせツリーなんかつかわないよね
-			# @tree.setDataSource(self)
-		end
 
 		@search.setDelegate(self)
 		@drawer.open
@@ -97,27 +91,15 @@ class CHMWindowController < NSWindowController
 	#    * outlineView:setObjectValue:forTableColumn:byItem:
 
 	def outlineView_child_ofItem(ov, index, item)
-		if item
-			item[:children][index]
-		else
-			@topics[index]
-		end
+		(item || @topics)[:children][index]
 	end
 
 	def outlineView_isItemExpandable(ov, item)
-		if item
-			item[:children].length.nonzero?
-		else
-			@topics.length.nonzero?
-		end
+		(item || @topics)[:children].length.nonzero?
 	end
 
 	def outlineView_numberOfChildrenOfItem(ov, item)
-		if item
-			item[:children].length
-		else
-			@topics.length
-		end
+		(item || @topics)[:children].length
 	end
 
 	def outlineView_objectValueForTableColumn_byItem(ov, column, item)
@@ -160,6 +142,19 @@ class CHMWindowController < NSWindowController
 
 	def acceptsFirstResponder
 		true
+	end
+
+	# TabView
+	def tabView_willSelectTabViewItem(sender, item)
+		log item.label
+		if item.label == "Tree"
+			Thread.start do
+				@topics = @chm.topics
+				# おちやすい
+				@tree.setDataSource(self)
+				@tree.reloadData
+			end
+		end
 	end
 
 	# general
@@ -278,8 +273,9 @@ class CHMWindowController < NSWindowController
 	# from MySearchWindow
 
 	def process_keybinds(e)
-		log NSInputManager.currentInputManager.markedRange.empty?
-		return false unless NSInputManager.currentInputManager.markedRange.empty?
+		if NSInputManager.currentInputManager
+			return false unless NSInputManager.currentInputManager.markedRange.empty?
+		end
 		key = key_string(e)
 		log "keyDown (#{e.characters}:#{e.charactersIgnoringModifiers}) -> '#{key}'"
 		keybinds = {
