@@ -103,11 +103,7 @@ class CHMWindowController < NSWindowController
 	end
 
 	def outlineView_objectValueForTableColumn_byItem(ov, column, item)
-		if item
-			item[:name]
-		else
-			""
-		end
+		item[:name]
 	end
 
 	def treeclicked(sender)
@@ -149,8 +145,11 @@ class CHMWindowController < NSWindowController
 		log item.label
 		if item.label == "Tree"
 			Thread.start do
-				@topics = @chm.topics
-				# おちやすい
+				# http://subtech.g.hatena.ne.jp/cho45/20071025#c1193355031
+				#  > OutlineView は DataSource に、ノードの値が変わらない限り、
+				#  > 同じ NSString を返すように期待してるようです。
+				# NSDictionary で保持するように
+				@topics = NSDictionary.dictionaryWithDictionary(@chm.topics)
 				@tree.setDataSource(self)
 				@tree.reloadData
 			end
