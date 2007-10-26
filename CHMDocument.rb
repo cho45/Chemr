@@ -1,63 +1,5 @@
 #!rake ;#
 
-class CHMDocument < NSDocument
-	attr_reader :chm
-
-	#- (void)makeWindowControllers
-	def makeWindowControllers
-		c = CHMWindowController.alloc.initWithWindowNibName("CHMDocument")
-		self.addWindowController(c)
-	end
-
-	#- (BOOL)readFromURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
-	def readFromURL_ofType_error(url, type, error)
-		@chm = Chmlib::Chm.new(url.path.to_s)
-		true
-	end
-
-	#- (BOOL)writeToURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
-	def writeToURL_ofType_error(url, type, error)
-		false
-	end
-
-	#- (void)windowControllerDidLoadWindowNib:(NSWindowController *)windowController
-	def windowControllerDidLoadWindowNib(cont)
-		log "wCDLWN", cont
-	end
-
-#	def dataRepresentationOfType(aType)
-#	end
-#
-#	def loadDataRepresentation_ofType(data, aType)
-#	end
-
-	def displayName
-		dc = NSDocumentController.sharedDocumentController
-		i = dc.documents.index(self) + 1
-		cmd = [8984].pack("U")
-		"#{cmd}#{i}| #{@chm.title}"
-	end
-
-	def windowControllerWillLoadNib(cont)
-		log cont
-	end
-
-	def winwowNibName
-		"CHMDocument"
-	end
-end
-
-class MySearchWindow < NSWindow
-
-	def sendEvent(e)
-		if e.oc_type == NSKeyDown
-			return if delegate.process_keybinds(e)
-		end
-		super_sendEvent(e)
-	end
-
-end
-
 
 require "uri"
 class CHMWindowController < NSWindowController
@@ -70,7 +12,6 @@ class CHMWindowController < NSWindowController
 	def windowDidLoad
 		@chm = self.document.chm
 		uri  = URI(self.document.fileURL.absoluteString)
-		log uri
 		browse @chm.home
 		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
 		@list.setDataSource(self)
@@ -381,5 +322,62 @@ class CHMWindowController < NSWindowController
 #		log "loaded"
 	end
 
+end
+
+class CHMDocument < NSDocument
+	attr_reader :chm
+
+	#- (void)makeWindowControllers
+	def makeWindowControllers
+		c = CHMWindowController.alloc.initWithWindowNibName("CHMDocument")
+		self.addWindowController(c)
+	end
+
+	#- (BOOL)readFromURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
+	def readFromURL_ofType_error(url, type, error)
+		@chm = Chmlib::Chm.new(url.path.to_s)
+		true
+	end
+
+	#- (BOOL)writeToURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
+	def writeToURL_ofType_error(url, type, error)
+		false
+	end
+
+	#- (void)windowControllerDidLoadWindowNib:(NSWindowController *)windowController
+	def windowControllerDidLoadWindowNib(cont)
+		log "wCDLWN", cont
+	end
+
+#	def dataRepresentationOfType(aType)
+#	end
+#
+#	def loadDataRepresentation_ofType(data, aType)
+#	end
+
+	def displayName
+		dc = NSDocumentController.sharedDocumentController
+		i = dc.documents.index(self) + 1
+		cmd = [8984].pack("U")
+		"#{cmd}#{i}| #{@chm.title}"
+	end
+
+	def windowControllerWillLoadNib(cont)
+		log cont
+	end
+
+	def winwowNibName
+		"CHMDocument"
+	end
+end
+
+class MySearchWindow < NSWindow
+
+	def sendEvent(e)
+		if e.oc_type == NSKeyDown
+			return if delegate.process_keybinds(e)
+		end
+		super_sendEvent(e)
+	end
 
 end

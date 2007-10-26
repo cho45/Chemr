@@ -119,6 +119,8 @@ class AppController < NSObject
 		r = NSURLProtocol.registerClass CHMInternalURLProtocol
 		log "Register: #{r}"
 
+		WebPreferences.standardPreferences.userStyleSheetEnabled = true
+		WebPreferences.standardPreferences.userStyleSheetLocation = NSURL.URLWithString("#{ENV["HOME"]}/.chemr/userstyle.css")
 	end
 
 	def applicationWillTerminate(n)
