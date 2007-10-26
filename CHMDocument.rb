@@ -332,7 +332,12 @@ class CHMDocument < NSDocument
 
 	#- (BOOL)readFromURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
 	def readFromURL_ofType_error(url, type, error)
-		@chm = Chmlib::Chm.new(url.path.to_s)
+		path = Pathname.new(url.path.to_s)
+		if path.directory?
+			@chm = CHMBundle.new(path)
+		else
+			@chm = Chmlib::Chm.new(path.to_s)
+		end
 		true
 	end
 
@@ -378,3 +383,5 @@ class MySearchWindow < NSWindow
 	end
 
 end
+
+
