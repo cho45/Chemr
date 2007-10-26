@@ -85,15 +85,12 @@ class CHMWindowController < NSWindowController
 	def tabView_willSelectTabViewItem(sender, item)
 		log item.label
 		if item.label == "Tree"
-			Thread.start do
-				# http://subtech.g.hatena.ne.jp/cho45/20071025#c1193355031
-				#  > OutlineView は DataSource に、ノードの値が変わらない限り、
-				#  > 同じ NSString を返すように期待してるようです。
-				# NSDictionary で保持するように
-				@topics = NSDictionary.dictionaryWithDictionary(@chm.topics)
-				@tree.setDataSource(self)
-				@tree.reloadData
-			end
+			# http://subtech.g.hatena.ne.jp/cho45/20071025#c1193355031
+			#  > OutlineView は DataSource に、ノードの値が変わらない限り、
+			#  > 同じ NSString を返すように期待してるようです。
+			# NSDictionary で保持するように
+			@topics = NSDictionary.dictionaryWithDictionary(@chm.topics)
+			@tree.setDataSource(self)
 		end
 	end
 
