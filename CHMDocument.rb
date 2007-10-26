@@ -119,6 +119,25 @@ class CHMWindowController < NSWindowController
 		@now = @index.select {|k,v|
 			k =~ r
 		}.sort_by {|k,v| k.length }
+
+		if @now.length.zero?
+			r = /#{str.split(//).map {|c| Regexp.escape(c) }.join(".*")}/i
+			@now = @index.select {|k,v|
+				k =~ r
+			}.sort_by {|k,v|
+				r.match(k).begin(0)
+			}
+			@list.usesAlternatingRowBackgroundColors = false
+			@list.backgroundColor = NSColor.objc_send(
+				:colorWithCalibratedRed, 0.95,
+				:green, 0.90,
+				:blue, 0.90,
+				:alpha, 1
+			)
+		else
+			@list.usesAlternatingRowBackgroundColors = true
+		end
+
 		@list.reloadData
 	end
 
