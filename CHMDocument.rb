@@ -121,12 +121,15 @@ class CHMWindowController < NSWindowController
 		}.sort_by {|k,v| k.length }
 
 		if @now.length.zero?
-			r = /#{str.split(//).map {|c| Regexp.escape(c) }.join(".*")}/i
-			@now = @index.select {|k,v|
+			r = /(#{str.split(//).map {|c| Regexp.escape(c) }.join(").*?(")})/i
+			@now.concat @index.select {|k,v|
 				k =~ r
 			}.sort_by {|k,v|
-				r.match(k).begin(0)
+				# 文字が前のほうに集っているほど高ランクになるように
+				m = r.match(k)
+				(0...m.size).map {|i| m.begin(i) }.inject {|p,i| p + i }
 			}
+
 			@list.usesAlternatingRowBackgroundColors = false
 			@list.backgroundColor = NSColor.objc_send(
 				:colorWithCalibratedRed, 0.95,
