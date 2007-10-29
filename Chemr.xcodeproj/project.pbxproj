@@ -15,6 +15,7 @@
 		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
 		66A6C82F42B999DC7901B1D6 /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = 8AB11017C292A6A022C3655E /* AppController.rb */; };
 		741A3CED0CD24BD7009F050E /* CHMBundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = 741A3CEC0CD24BD7009F050E /* CHMBundle.rb */; };
+		7440258A0CD6092A006D1371 /* ChemrConfig.rb in Resources */ = {isa = PBXBuildFile; fileRef = 744025890CD6092A006D1371 /* ChemrConfig.rb */; };
 		7443AFF70CCE31A30050984A /* CHMDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7443AFF50CCE31A30050984A /* CHMDocument.nib */; };
 		7443AFFA0CCE31BA0050984A /* CHMDocument.rb in Resources */ = {isa = PBXBuildFile; fileRef = 7443AFF90CCE31BA0050984A /* CHMDocument.rb */; };
 		749109C40CCE9466002D03F9 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 749109C30CCE9466002D03F9 /* icon.icns */; };
@@ -48,6 +49,7 @@
 		4DDCA7110ACC9A6100E082CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDCA7120ACC9A6100E082CE /* Chemr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chemr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		741A3CEC0CD24BD7009F050E /* CHMBundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CHMBundle.rb; sourceTree = "<group>"; };
+		744025890CD6092A006D1371 /* ChemrConfig.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ChemrConfig.rb; sourceTree = "<group>"; };
 		7443AFF60CCE31A30050984A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/CHMDocument.nib; sourceTree = "<group>"; };
 		7443AFF90CCE31BA0050984A /* CHMDocument.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CHMDocument.rb; sourceTree = "<group>"; };
 		749109C30CCE9466002D03F9 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				744025890CD6092A006D1371 /* ChemrConfig.rb */,
 				741A3CEC0CD24BD7009F050E /* CHMBundle.rb */,
 				8AB11017C292A6A022C3655E /* AppController.rb */,
 				7443AFF90CCE31BA0050984A /* CHMDocument.rb */,
@@ -216,6 +219,7 @@
 				749109C40CCE9466002D03F9 /* icon.icns in Resources */,
 				74E391350CCF3662007A565D /* file.icns in Resources */,
 				741A3CED0CD24BD7009F050E /* CHMBundle.rb in Resources */,
+				7440258A0CD6092A006D1371 /* ChemrConfig.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

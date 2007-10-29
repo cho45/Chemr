@@ -2,6 +2,7 @@
 
 
 require "uri"
+
 class CHMWindowController < NSWindowController
 	ib_outlet :webview
 	ib_outlet :list
@@ -285,6 +286,7 @@ class CHMWindowController < NSWindowController
 				end
 			}
 		end
+		eval(ChemrConfig.instance.keybinds, binding)
 		if keybinds.key?(key)
 			keybinds[key].call(self)
 			true

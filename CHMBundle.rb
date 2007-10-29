@@ -2,6 +2,8 @@
 require "yaml"
 
 class CHMBundle
+	attr_reader :path
+
 	def initialize(path)
 		@path   = path
 		@bundle = NSBundle.bundleWithPath(path.realpath.to_s)

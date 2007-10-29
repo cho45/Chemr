@@ -2,7 +2,6 @@ require 'osx/cocoa'
 include OSX
 
 require "uri"
-
 class CHMInternalURLProtocol < NSURLProtocol
 	#+ (void)registerContainer:(CHMContainer *)container;
 	#+ (void)unregisterContainer:(CHMContainer *)container;
@@ -119,8 +118,12 @@ class AppController < NSObject
 		r = NSURLProtocol.registerClass CHMInternalURLProtocol
 		log "Register: #{r}"
 
+		@config = ChemrConfig.instance
+
 		WebPreferences.standardPreferences.userStyleSheetEnabled = true
-		WebPreferences.standardPreferences.userStyleSheetLocation = NSURL.URLWithString("#{ENV["HOME"]}/.chemr/userstyle.css")
+		WebPreferences.standardPreferences.userStyleSheetLocation = NSURL.URLWithString(@config.userstyle)
+
+		eval(@config.initrc, binding)
 	end
 
 	def applicationWillTerminate(n)
