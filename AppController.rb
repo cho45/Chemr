@@ -1,6 +1,8 @@
 require 'osx/cocoa'
 include OSX
 
+require "drb/drb"
+
 require "uri"
 class CHMInternalURLProtocol < NSURLProtocol
 	#+ (void)registerContainer:(CHMContainer *)container;
