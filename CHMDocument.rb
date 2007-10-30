@@ -195,7 +195,9 @@ class CHMWindowController < NSWindowController
 	# from menu
 	def searchActivate(sender)
 		log "activate"
-		@search.window.makeFirstResponder(@search)
+		if @search.window
+			@search.window.makeFirstResponder(@search)
+		end
 	end
 
 	def nextCandidate(sender)
