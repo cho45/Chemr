@@ -152,7 +152,13 @@ class CHMWindowController < NSWindowController
 	end
 
 	def browse(path)
-		if path
+		return unless path
+		case path
+		when /^http:/
+			r = NSURLRequest.requestWithURL NSURL.URLWithString(path.to_s)
+			log path
+			@webview.mainFrame.loadRequest r
+		else
 			path = "/#{path}" unless path[0] == ?/
 			h = @webview.stringByEvaluatingJavaScriptFromString("location.pathname+location.hash")
 			unless path == h
@@ -309,36 +315,36 @@ class CHMWindowController < NSWindowController
 	end
 
 	# webview policyDelegate
-	def webView_decidePolicyForNavigationAction_request_frame_decisionListener(
-		sender,
-		actionInformation,
-		request,
-		frame,
-		listener
-	)
-
-		if CHMInternalURLProtocol.canHandleURL(request.URL)
-			listener.use
-		else
-			NSWorkspace.sharedWorkspace.openURL(request.URL)
-			listener.ignore
-		end
-	end
-
-	def webView_decidePolicyForNewWindowAction_request_newFrameName_decisionListener(
-		sender,
-		actionInformation,
-		request,
-		frameName,
-		listener
-	)
-		if CHMInternalURLProtocol.canHandleURL(request.URL)
-			listener.use
-		else
-			NSWorkspace.sharedWorkspace.openURL(request.URL)
-			listener.ignore
-		end
-	end
+#	def webView_decidePolicyForNavigationAction_request_frame_decisionListener(
+#		sender,
+#		actionInformation,
+#		request,
+#		frame,
+#		listener
+#	)
+#
+#		if CHMInternalURLProtocol.canHandleURL(request.URL)
+#			listener.use
+#		else
+#			NSWorkspace.sharedWorkspace.openURL(request.URL)
+#			listener.ignore
+#		end
+#	end
+#
+#	def webView_decidePolicyForNewWindowAction_request_newFrameName_decisionListener(
+#		sender,
+#		actionInformation,
+#		request,
+#		frameName,
+#		listener
+#	)
+#		if CHMInternalURLProtocol.canHandleURL(request.URL)
+#			listener.use
+#		else
+#			NSWorkspace.sharedWorkspace.openURL(request.URL)
+#			listener.ignore
+#		end
+#	end
 
 	# webview loading delegate
 	def webView_resource_didFinishLoadingFromDataSource(sender, id, datasource)
