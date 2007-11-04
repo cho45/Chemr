@@ -58,7 +58,17 @@ desc "Package the application"
 task :package => ["xcode:build:#{DEFAULT_TARGET}:#{RELEASE_CONFIGURATION}", "pkg"] do
 	name = "#{APPNAME}.#{VERSION}"
 	mkdir "image"
+
+	# copy libruby.1.dylib
 	sh %{rubycocoa standaloneify "build/#{DEFAULT_CONFIGURATION}/#{APPNAME}.app" "image/#{APPNAME}.app"}
+	system_libruby = Pathname.new("/usr/lib/libruby.1.dylib").realpath
+	bundle_libruby = "image/#{APPNAME}.app/Contents/Resources/libruby.1.dylib"
+	linked_binary  = "image/#{APPNAME}.app/Contents/Frameworks/RubyCocoa.framework/Versions/A/RubyCocoa"
+	(Pathname.glob("image/**/*.{bundle,dylib}") + [linked_binary]).each do |l|
+		sh %{install_name_tool -change '#{system_libruby}' '@executable_path/../Resources/libruby.1.dylib' '#{l}'}
+	end
+	cp system_libruby, bundle_libruby
+
 	File.open("image/#{APPNAME}.app/Contents/Resources/VERSION", "wb") {|f| f << VERSION }
 	#cp "lib/libchm.0.0.0.dylib", "image/#{APPNAME}.app/Contents/Resources"
 	cp %w{COPYING README}, "image/"
