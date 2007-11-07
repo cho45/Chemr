@@ -59,6 +59,12 @@ task :package => ["xcode:build:#{DEFAULT_TARGET}:#{RELEASE_CONFIGURATION}", "pkg
 	name = "#{APPNAME}.#{VERSION}"
 	mkdir "image"
 
+	ENV["LANG"] = "C"
+	sh %{svn up}
+	svninfo = `svn info`
+	rev = svninfo[/^Revision: (\d+)/, 1]
+	File.open("image/version_info.txt", "w") {|f| f << svninfo }
+
 	# copy libruby.1.dylib
 	sh %{rubycocoa standaloneify "build/#{DEFAULT_CONFIGURATION}/#{APPNAME}.app" "image/#{APPNAME}.app"}
 	system_libruby = Pathname.new("/usr/lib/libruby.1.dylib").realpath
@@ -69,7 +75,7 @@ task :package => ["xcode:build:#{DEFAULT_TARGET}:#{RELEASE_CONFIGURATION}", "pkg
 	end
 	cp system_libruby, bundle_libruby
 
-	File.open("image/#{APPNAME}.app/Contents/Resources/VERSION", "wb") {|f| f << VERSION }
+	File.open("image/#{APPNAME}.app/Contents/Resources/VERSION", "wb") {|f| f << "#{VERSION}.#{rev}" }
 	#cp "lib/libchm.0.0.0.dylib", "image/#{APPNAME}.app/Contents/Resources"
 	cp %w{COPYING README}, "image/"
 	puts 'Creating Image...'
