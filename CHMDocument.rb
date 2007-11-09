@@ -351,6 +351,10 @@ class CHMWindowController < NSWindowController
 #		log "loaded"
 	end
 
+	# debug
+	def needsPanelToBecomeKey
+		true
+	end
 end
 
 class CHMDocument < NSDocument

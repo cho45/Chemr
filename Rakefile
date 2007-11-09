@@ -67,6 +67,7 @@ task :package => ["xcode:build:#{DEFAULT_TARGET}:#{RELEASE_CONFIGURATION}", "pkg
 
 	# copy libruby.1.dylib
 	sh %{rubycocoa standaloneify "build/#{DEFAULT_CONFIGURATION}/#{APPNAME}.app" "image/#{APPNAME}.app"}
+
 	system_libruby = Pathname.new("/usr/lib/libruby.1.dylib").realpath
 	bundle_libruby = "image/#{APPNAME}.app/Contents/Resources/libruby.1.dylib"
 	linked_binary  = "image/#{APPNAME}.app/Contents/Frameworks/RubyCocoa.framework/Versions/A/RubyCocoa"
