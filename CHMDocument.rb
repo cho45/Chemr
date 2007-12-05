@@ -23,6 +23,7 @@ class CHMWindowController < NSWindowController
 
 		@search.setDelegate(self)
 		@drawer.open
+		searchActivate(nil)
 	end
 
 	# OutlineView
@@ -113,9 +114,9 @@ class CHMWindowController < NSWindowController
 	def filtering(str)
 		str = str.to_s
 		if str =~ /[A-Z]/
-			r = /^#{str}/
+			r = /^#{Regexp.escape(str)}/
 		else
-			r = /^#{str}/i
+			r = /^#{Regexp.escape(str)}/i
 		end
 		@now = @index.select {|k,v|
 			k =~ r
