@@ -24,6 +24,58 @@ class CHMWindowController < NSWindowController
 		@search.setDelegate(self)
 		@drawer.open
 		searchActivate(nil)
+		load_condition
+	end
+	
+	def windowWillClose(sender)
+		save_condition
+	end
+	
+	def load_condition
+		category = NSUserDefaults.standardUserDefaults[:documents]
+		if category
+			config = category[self.document.fileURL.absoluteString]
+			if config
+				self.window.setFrame_display(NSRect.new(*config[:frame].to_ruby), false)
+				size = @drawer.contentSize
+				size.width = config[:drawer_width].to_f
+				@drawer.setContentSize(size)
+				@search.stringValue = config[:search]
+				@search.currentEditor.setSelectedRange(NSRange.new(@search.stringValue.length, 0))
+				controlTextDidChange(nil)
+
+				r = NSURLRequest.requestWithURL NSURL.URLWithString(config[:url])
+				@webview.mainFrame.loadRequest r
+			else
+				config = category[:last]
+				if config
+					frame = self.window.frame
+					frame.size = NSSize.new(*config[:frame].to_ruby[2..3])
+					self.window.setFrame_display(frame, false)
+					size = @drawer.contentSize
+					size.width = config[:drawer_width].to_i
+					@drawer.setContentSize(size)
+				end
+			end
+		end
+	end
+	
+	def save_condition
+		userdef = NSUserDefaults.standardUserDefaults
+		category = userdef[:documents]
+		category = category ? category.to_ruby : {}
+		config = {
+			:frame => self.window.frame.to_a.flatten,
+			:search => @search.stringValue,
+			:drawer_width => @drawer.contentSize.width,
+			:url => @webview.mainFrameURL,
+		}
+		category[self.document.fileURL.absoluteString.to_s] = config
+		category['last'] = config
+		userdef[:documents] = category
+		userdef.synchronize
+		
+		log @webview.mainFrameURL
 	end
 
 	# OutlineView
