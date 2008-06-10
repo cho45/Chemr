@@ -174,15 +174,18 @@ class CHMWindowController < NSWindowController
 			k =~ r
 		}.sort_by {|k,v| k.length }
 
+		@search_thread.kill rescue nil
 		if @now.length.zero?
-			r = /(#{str.split(//).map {|c| Regexp.escape(c) }.join(").*?(")})/i
-			@now.concat @index.select {|k,v|
-				k =~ r
-			}.sort_by {|k,v|
-				# 文字が前のほうに集っているほど高ランクになるように
-				m = r.match(k)
-				(0...m.size).map {|i| m.begin(i) }.inject {|p,i| p + i }
-			}
+			@now << ["Loading...", [""]]
+			@search_thread = Thread.start(str) do |str|
+				r = /(#{str.split(//).map {|c| Regexp.escape(c) }.join(").*?(")})/i
+				@now = @index.sort_by {|k,v|
+					# 文字が前のほうに集っているほど高ランクになるように
+					m = r.match(k)
+					!m ? Float::MAX : (0...m.size).map {|i| m.begin(i) }.inject {|p,i| p + i }
+				}.first(30)
+				@list.reloadData
+			end
 
 			@list.usesAlternatingRowBackgroundColors = false
 			@list.backgroundColor = NSColor.objc_send(
@@ -317,7 +320,7 @@ class CHMWindowController < NSWindowController
 				JS
 			},
 			"C-\r" => Proc.new {|s|
-				@now = @chm.search(@search.stringValue).map {|title,url|
+				@now = (@chm.search(@search.stringValue) || []).map {|title,url|
 					[title, [url]]
 				}
 				@list.reloadData
