@@ -14,7 +14,8 @@ class CHMWindowController < NSWindowController
 		@chm = self.document.chm
 		uri  = URI(self.document.fileURL.absoluteString)
 		browse @chm.home
-		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
+ 		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
+    init_hash
 		@list.setDataSource(self)
 		@list.setDoubleAction("clicked_")
 		@list.setAction("clicked_")
@@ -26,6 +27,15 @@ class CHMWindowController < NSWindowController
 		searchActivate(nil)
 		load_condition
 	end
+
+  KEY_LENGTH = 2
+  def init_hash
+    @hash = Hash.new{[]}
+    @index.each do |k, v|
+      key = k[0, KEY_LENGTH].downcase
+      @hash[key] <<= [k, v]
+    end
+  end
 	
 	def windowWillClose(sender)
 		save_condition
@@ -163,16 +173,32 @@ class CHMWindowController < NSWindowController
 		clicked(sender)
 	end
 
-	def filtering(str)
-		str = str.to_s
-		if str =~ /[A-Z]/
-			r = /^#{Regexp.escape(str)}/
+  def fast_filter(keyword)
+		keyword = keyword.to_s
+
+		if /[A-Z]/ === keyword
+			r = /^#{Regexp.escape(keyword)}/
 		else
-			r = /^#{Regexp.escape(str)}/i
+			r = /^#{Regexp.escape(keyword)}/i
 		end
-		@now = @index.select {|k,v|
-			k =~ r
-		}.sort_by {|k,v| k.length }
+
+    key = keyword[0,KEY_LENGTH].downcase
+
+    if keyword.length.zero?
+      @index
+    else
+      if keyword.length < KEY_LENGTH
+        result = @hash.keys.select{|k| k.start_with? key}.map{|k| @hash[k]}.flatten(1)
+      else
+        result = @hash[key].to_a
+      end
+
+      result.select{|k,v| r === k}.sort_by{|k,v| k.length}
+    end
+  end
+
+	def filtering(str)
+		@now = fast_filter(str)
 
 		@search_thread.kill rescue nil
 		if @now.length.zero?
