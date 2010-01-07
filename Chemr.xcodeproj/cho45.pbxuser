@@ -10,13 +10,11 @@
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Release;
-		activeBuildStyle = 7443AFE00CCE315B0050984A /* 開発 */;
 		activeExecutable = 7443AFE40CCE315B0050984A /* Chemr */;
 		activeTarget = 4DDCA7030ACC9A6100E082CE /* Chemr */;
 		addToTargets = (
 			4DDCA7030ACC9A6100E082CE /* Chemr */,
 		);
-		breakpointsGroup = 742E834B0CCE493B00738CBF /* XCBreakpointsBucket */;
 		codeSenseManager = 7443AFF40CCE31610050984A /* Code sense */;
 		executables = (
 			7443AFE40CCE315B0050984A /* Chemr */,
@@ -90,8 +88,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 215353627;
-			PBXWorkspaceStateSaveDate = 215353627;
+			PBXPerProjectTemplateStateSaveDate = 284573696;
+			PBXWorkspaceStateSaveDate = 284573696;
+		};
+		perUserProjectItems = {
+			7414B53110F6403100F49175 /* PBXTextBookmark */ = 7414B53110F6403100F49175 /* PBXTextBookmark */;
+			7414B53210F6403100F49175 /* PBXTextBookmark */ = 7414B53210F6403100F49175 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 7443AFF30CCE31610050984A /* Source Control */;
 		userBuildSettings = {
@@ -103,20 +105,41 @@
 			7443AFE40CCE315B0050984A /* Chemr */,
 		);
 	};
-	742E834B0CCE493B00738CBF /* XCBreakpointsBucket */ = {
-		isa = XCBreakpointsBucket;
-		name = "プロジェクトブレークポイント";
-		objects = (
-		);
+	7414B52D10F6402900F49175 /* chm.rb */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {468, 7182}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 51}";
+		};
+	};
+	7414B53110F6403100F49175 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7414B52D10F6402900F49175 /* chm.rb */;
+		name = "chm.rb: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 51;
+		vrLoc = 0;
+	};
+	7414B53210F6403100F49175 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7414B52D10F6402900F49175 /* chm.rb */;
+		name = "chm.rb: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 51;
+		vrLoc = 0;
 	};
 	7443AFE40CCE315B0050984A /* Chemr */ = {
 		isa = PBXExecutable;
-		activeArgIndex = 2147483647;
 		activeArgIndices = (
 		);
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;

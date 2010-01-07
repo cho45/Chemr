@@ -1,0 +1,3 @@
+[submodule "modules/rb-chm"]
+	path = modules/rb-chm
+	url = git://github.com/cho45/rb-chm.git

@@ -14,6 +14,8 @@
 		4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
 		66A6C82F42B999DC7901B1D6 /* AppController.rb in Resources */ = {isa = PBXBuildFile; fileRef = 8AB11017C292A6A022C3655E /* AppController.rb */; };
+		7414B52E10F6402900F49175 /* chm.rb in Resources */ = {isa = PBXBuildFile; fileRef = 7414B52D10F6402900F49175 /* chm.rb */; };
+		7414B53010F6402E00F49175 /* chmlib.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7414B52F10F6402E00F49175 /* chmlib.bundle */; };
 		741A3CED0CD24BD7009F050E /* CHMBundle.rb in Resources */ = {isa = PBXBuildFile; fileRef = 741A3CEC0CD24BD7009F050E /* CHMBundle.rb */; };
 		7440258A0CD6092A006D1371 /* ChemrConfig.rb in Resources */ = {isa = PBXBuildFile; fileRef = 744025890CD6092A006D1371 /* ChemrConfig.rb */; };
 		7443AFF70CCE31A30050984A /* CHMDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7443AFF50CCE31A30050984A /* CHMDocument.nib */; };
@@ -22,23 +24,6 @@
 		74E391350CCF3662007A565D /* file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 74E391340CCF3662007A565D /* file.icns */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildStyle section */
-		7443AFE00CCE315B0050984A /* 開発 */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = "開発";
-		};
-		7443AFE10CCE315B0050984A /* 運用 */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-			};
-			name = "運用";
-		};
-/* End PBXBuildStyle section */
-
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -46,8 +31,10 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		4DDCA7110ACC9A6100E082CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDCA7110ACC9A6100E082CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDCA7120ACC9A6100E082CE /* Chemr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chemr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7414B52D10F6402900F49175 /* chm.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = chm.rb; sourceTree = "<group>"; };
+		7414B52F10F6402E00F49175 /* chmlib.bundle */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = chmlib.bundle; sourceTree = "<group>"; };
 		741A3CEC0CD24BD7009F050E /* CHMBundle.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = CHMBundle.rb; sourceTree = "<group>"; };
 		744025890CD6092A006D1371 /* ChemrConfig.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ChemrConfig.rb; sourceTree = "<group>"; };
 		7443AFF60CCE31A30050984A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/CHMDocument.nib; sourceTree = "<group>"; };
@@ -126,6 +113,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7414B52D10F6402900F49175 /* chm.rb */,
+				7414B52F10F6402E00F49175 /* chmlib.bundle */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				E8F5E25803AEB7C803A81C6F /* rb_main.rb */,
 			);
@@ -190,15 +179,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 4D7A7B570ABF745500C2D4C0 /* Build configuration list for PBXProject "Chemr" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				7443AFE00CCE315B0050984A /* 開発 */,
-				7443AFE10CCE315B0050984A /* 運用 */,
-			);
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 0;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Chemr */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				4DDCA7030ACC9A6100E082CE /* Chemr */,
 			);
@@ -220,6 +205,8 @@
 				74E391350CCF3662007A565D /* file.icns in Resources */,
 				741A3CED0CD24BD7009F050E /* CHMBundle.rb in Resources */,
 				7440258A0CD6092A006D1371 /* ChemrConfig.rb in Resources */,
+				7414B52E10F6402900F49175 /* chm.rb in Resources */,
+				7414B53010F6402E00F49175 /* chmlib.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

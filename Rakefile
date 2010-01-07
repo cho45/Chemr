@@ -23,7 +23,14 @@ task :run => [:build] do
 end
 
 desc 'Build the default target using the default configuration'
-task :build => "xcode:build:#{DEFAULT_TARGET}:#{DEFAULT_CONFIGURATION}"
+task :build => [:build_lib, "xcode:build:#{DEFAULT_TARGET}:#{DEFAULT_CONFIGURATION}"]
+
+task :build_lib do
+	cd "modules/rb-chm" do
+		sh %{ruby setup.rb config}
+		sh %{ruby setup.rb setup}
+	end
+end
 
 desc 'Deep clean of everything'
 task :clean do
