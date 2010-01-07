@@ -1,5 +1,3 @@
-#!rake ;#
-
 
 require "uri"
 
@@ -14,8 +12,8 @@ class CHMWindowController < NSWindowController
 		@chm = self.document.chm
 		uri  = URI(self.document.fileURL.absoluteString)
 		browse @chm.home
- 		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
-    init_hash
+		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
+		init_hash
 		@list.setDataSource(self)
 		@list.setDoubleAction("clicked_")
 		@list.setAction("clicked_")
@@ -28,19 +26,19 @@ class CHMWindowController < NSWindowController
 		load_condition
 	end
 
-  KEY_LENGTH = 2
-  def init_hash
-    @hash = Hash.new{[]}
-    @index.each do |k, v|
-      key = k[0, KEY_LENGTH].downcase
-      @hash[key] <<= [k, v]
-    end
-  end
-	
+	KEY_LENGTH = 2
+	def init_hash
+		@hash = Hash.new{[]}
+		@index.each do |k, v|
+			key = k[0, KEY_LENGTH].downcase
+			@hash[key] <<= [k, v]
+		end
+	end
+
 	def windowWillClose(sender)
 		save_condition
 	end
-	
+
 	def load_condition
 		category = NSUserDefaults.standardUserDefaults[:documents]
 		if category
@@ -69,7 +67,7 @@ class CHMWindowController < NSWindowController
 			end
 		end
 	end
-	
+
 	def save_condition
 		userdef = NSUserDefaults.standardUserDefaults
 		category = userdef[:documents]
@@ -84,7 +82,7 @@ class CHMWindowController < NSWindowController
 		category['last'] = config
 		userdef[:documents] = category
 		userdef.synchronize
-		
+
 		log @webview.mainFrameURL
 	end
 
@@ -173,7 +171,7 @@ class CHMWindowController < NSWindowController
 		clicked(sender)
 	end
 
-  def fast_filter(keyword)
+	def fast_filter(keyword)
 		keyword = keyword.to_s
 
 		if /[A-Z]/ === keyword
@@ -182,20 +180,20 @@ class CHMWindowController < NSWindowController
 			r = /^#{Regexp.escape(keyword)}/i
 		end
 
-    key = keyword[0,KEY_LENGTH].downcase
+		key = keyword[0,KEY_LENGTH].downcase
 
-    if keyword.length.zero?
-      @index
-    else
-      if keyword.length < KEY_LENGTH
-        result = @hash.keys.select{|k| k.start_with? key}.map{|k| @hash[k]}.flatten(1)
-      else
-        result = @hash[key].to_a
-      end
+		if keyword.length.zero?
+			@index
+		else
+			if keyword.length < KEY_LENGTH
+				result = @hash.keys.select {|k| k[0, key.length] == key }.map {|k| @hash[k] }.flatten
+			else
+				result = @hash[key].to_a
+			end
 
-      result.select{|k,v| r === k}.sort_by{|k,v| k.length}
-    end
-  end
+			result.select{|k,v| r === k}.sort_by{|k,v| k.length}
+		end
+	end
 
 	def filtering(str)
 		@now = fast_filter(str)
@@ -258,12 +256,12 @@ class CHMWindowController < NSWindowController
 		keys = @now.map{|k,v| k.split(//)}
 		if @search.stringValue.to_s =~ /[A-Z]/
 			keys[0].zip(*keys[1..-1]) do |a|
-				m = a.first
-				if a.all? {|v| m == v}
-					common << m
-				else
-					break
-				end
+			m = a.first
+			if a.all? {|v| m == v}
+				common << m
+			else
+				break
+			end
 			end
 		else
 			keys[0].zip(*keys[1..-1]) do |a|
@@ -397,40 +395,40 @@ class CHMWindowController < NSWindowController
 	end
 
 	# webview policyDelegate
-#	def webView_decidePolicyForNavigationAction_request_frame_decisionListener(
-#		sender,
-#		actionInformation,
-#		request,
-#		frame,
-#		listener
-#	)
-#
-#		if CHMInternalURLProtocol.canHandleURL(request.URL)
-#			listener.use
-#		else
-#			NSWorkspace.sharedWorkspace.openURL(request.URL)
-#			listener.ignore
-#		end
-#	end
-#
-#	def webView_decidePolicyForNewWindowAction_request_newFrameName_decisionListener(
-#		sender,
-#		actionInformation,
-#		request,
-#		frameName,
-#		listener
-#	)
-#		if CHMInternalURLProtocol.canHandleURL(request.URL)
-#			listener.use
-#		else
-#			NSWorkspace.sharedWorkspace.openURL(request.URL)
-#			listener.ignore
-#		end
-#	end
+	#	def webView_decidePolicyForNavigationAction_request_frame_decisionListener(
+	#		sender,
+	#		actionInformation,
+	#		request,
+	#		frame,
+	#		listener
+	#	)
+	#
+	#		if CHMInternalURLProtocol.canHandleURL(request.URL)
+	#			listener.use
+	#		else
+	#			NSWorkspace.sharedWorkspace.openURL(request.URL)
+	#			listener.ignore
+	#		end
+	#	end
+	#
+	#	def webView_decidePolicyForNewWindowAction_request_newFrameName_decisionListener(
+	#		sender,
+	#		actionInformation,
+	#		request,
+	#		frameName,
+	#		listener
+	#	)
+	#		if CHMInternalURLProtocol.canHandleURL(request.URL)
+	#			listener.use
+	#		else
+	#			NSWorkspace.sharedWorkspace.openURL(request.URL)
+	#			listener.ignore
+	#		end
+	#	end
 
 	# webview loading delegate
 	def webView_resource_didFinishLoadingFromDataSource(sender, id, datasource)
-#		log "loaded"
+		#		log "loaded"
 	end
 
 	# debug
@@ -469,11 +467,11 @@ class CHMDocument < NSDocument
 		log "wCDLWN", cont
 	end
 
-#	def dataRepresentationOfType(aType)
-#	end
-#
-#	def loadDataRepresentation_ofType(data, aType)
-#	end
+	#	def dataRepresentationOfType(aType)
+	#	end
+	#
+	#	def loadDataRepresentation_ofType(data, aType)
+	#	end
 
 	def displayName
 		dc = NSDocumentController.sharedDocumentController
