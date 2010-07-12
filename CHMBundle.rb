@@ -11,7 +11,14 @@ class CHMBundle
 		@home   = @info[:CHMHome].to_s
 		@title  = @info[:CHMTitle].to_s
 		if @info[:CHMKeyword]
-			@index = YAML.load(retrieve_object(@info[:CHMKeyword]))
+			if @info[:CHMKeyword].to_s.match(/\.dat$/)
+				@index = retrieve_object(@info[:CHMKeyword]).split(/\n/).map {|i|
+					name, uri = *i.split(/\t/, 2)
+					[name, [uri]]
+				}
+			else
+				@index = YAML.load(retrieve_object(@info[:CHMKeyword]))
+			end
 		end
 		if @info[:CHMTOC]
 			@topics = YAML.load(retrieve_object(@info[:CHMTOC]))
@@ -50,10 +57,11 @@ class CHMBundle
 #		p bundle.resourcePath
 #		p bundle.infoDictionary
 
-		log @bundle.resourcePath + path
+		log [@bundle.resourcePath, path].inspect
 		begin
 			File.read(@bundle.resourcePath + path)
-		rescue Errno::ENOENT
+		rescue Errno::ENOENT => e
+			log e.inspect
 			raise Chmlib::Chm::RetrieveError
 		end
 	end

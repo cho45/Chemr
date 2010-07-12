@@ -12,7 +12,7 @@ class CHMWindowController < NSWindowController
 		@chm = self.document.chm
 		uri  = URI(self.document.fileURL.absoluteString)
 		browse @chm.home
-		@now = @index = @chm.index.to_a.sort_by {|k,v| k} # cache
+		@now = @index = @chm.index.to_a.sort_by {|k,v| k.to_s } # cache
 		init_hash
 		@list.setDataSource(self)
 		@list.setDoubleAction("clicked_")
@@ -52,10 +52,7 @@ class CHMWindowController < NSWindowController
 				@search.currentEditor.setSelectedRange(NSRange.new(@search.stringValue.length, 0))
 				controlTextDidChange(nil)
 
-				Thread.start(config) do |c|
-					sleep 2
-					@webview.mainFrame.loadRequest NSURLRequest.requestWithURL NSURL.URLWithString(c[:url])
-				end
+				browse config[:url]
 			else
 				config = category[:last]
 				if config
@@ -184,11 +181,12 @@ class CHMWindowController < NSWindowController
 
 		key = keyword[0,KEY_LENGTH].downcase
 
+		@index
 		if keyword.length.zero?
 			@index
 		else
 			if keyword.length < KEY_LENGTH
-				result = @hash.keys.select {|k| k[0, key.length] == key }.map {|k| @hash[k] }.flatten
+				result = @hash.keys.select {|k| k[0, key.length] == key }.map {|k| @hash[k] }.inject([]) {|r,i| r << i}
 			else
 				result = @hash[key].to_a
 			end
@@ -228,22 +226,29 @@ class CHMWindowController < NSWindowController
 	end
 
 	def clicked(sender)
+		log [:clicked, @now[@list.selectedRow].inspect]
 		if @now[@list.selectedRow]
 			browse @now[@list.selectedRow][1].first
 		end
 	end
 
 	def browse(path)
+		path = path.to_s
 		return unless path
 		case path
 		when /^http:/
-			r = NSURLRequest.requestWithURL NSURL.URLWithString(path.to_s)
+			$registered = NSURLProtocol.unregisterClass CHMInternalURLProtocol if $registered
+			log "#{$registered}"
+			r = NSURLRequest.requestWithURL NSURL.URLWithString(path)
 			log path
 			@webview.mainFrame.loadRequest r
 		else
+			$registered = NSURLProtocol.registerClass CHMInternalURLProtocol unless $registered
+			log "#{$registered}"
 			path = "/#{path}" unless path[0] == ?/
 			h = @webview.stringByEvaluatingJavaScriptFromString("location.pathname+location.hash")
 			unless path == h
+				log [:browse, path]
 				r = NSURLRequest.requestWithURL CHMInternalURLProtocol.url_for(@chm, path)
 				log r
 				@webview.mainFrame.loadRequest r
@@ -450,6 +455,7 @@ class CHMDocument < NSDocument
 
 	#- (BOOL)readFromURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError
 	def readFromURL_ofType_error(url, type, error)
+		log "readFromURL_ofType_error #{url.path.to_s}"
 		path = Pathname.new(url.path.to_s)
 		if path.directory?
 			@chm = CHMBundle.new(path)

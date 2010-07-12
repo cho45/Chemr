@@ -24,7 +24,7 @@ class CHMInternalURLProtocol < NSURLProtocol
 
 	#+ (BOOL)canHandleURL:(NSURL *)anURL;
 	def self.canHandleURL(url)
-		# log "canhandle #{url}"
+		log "canHandleURL: #{url} => #{url ? url.scheme == SCHEME : false}"
 		return false unless url
 		url.scheme == SCHEME
 	end
@@ -117,8 +117,8 @@ class AppController < NSObject
 	end
 
 	def applicationWillFinishLaunching(n)
-		r = NSURLProtocol.registerClass CHMInternalURLProtocol
-		log "Register: #{r}"
+#		r = NSURLProtocol.registerClass CHMInternalURLProtocol
+#		log "Register: #{r}"
 
 		@config = ChemrConfig.instance
 
@@ -129,8 +129,8 @@ class AppController < NSObject
 	end
 
 	def applicationWillTerminate(n)
-		NSURLProtocol.unregisterClass CHMInternalURLProtocol
-		log "Unregister"
+#		NSURLProtocol.unregisterClass CHMInternalURLProtocol
+#		log "Unregister"
 	end
 
 end
